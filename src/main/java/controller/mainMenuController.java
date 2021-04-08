@@ -1,15 +1,21 @@
 package controller;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.pmw.tinylog.Logger;
 
 import java.io.IOException;
 
 public class mainMenuController {
+
+    @FXML
+    AnchorPane mainPane;
 
     public void loadScene(Stage _stage, String _fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/" + _fxml + ".fxml"));
@@ -17,11 +23,17 @@ public class mainMenuController {
         Stage stage = _stage;
         stage.setScene(new Scene(root));
         stage.show();
+        Logger.info(_fxml + " scene loaded.");
     }
 
     public void startPressed(ActionEvent e) throws IOException {
         Stage scene = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        Logger.info("Loading gameView fxml.");
         loadScene(scene, "gameView");
+    }
+
+    public void initialize() {
+        mainPane.setFocusTraversable(true);
     }
 
 }

@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.pmw.tinylog.Logger;
 
 public class RomanNumeralsApplication extends Application {
 
@@ -15,6 +16,8 @@ public class RomanNumeralsApplication extends Application {
         stage.setResizable(false);
         stage.setScene(new Scene(root));
         stage.show();
+        Logger.info("Application started.");
+        Logger.info("Main Menu loaded.");
     }
 
 }
