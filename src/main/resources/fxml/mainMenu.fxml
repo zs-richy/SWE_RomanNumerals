@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.mainMenuController"
-            prefHeight="400.0" prefWidth="600">
-
+<AnchorPane prefHeight="400.0" prefWidth="600" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.mainMenuController">
+   <children>
+      <Pane layoutX="75.0" layoutY="25.0" prefHeight="350.0" prefWidth="450.0">
+         <children>
+            <Button fx:id="startButton" layoutX="182.0" layoutY="87.0" mnemonicParsing="false" onAction="#startPressed" text="Start">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Button>
+            <Button fx:id="buttonResults" layoutX="181.0" layoutY="163.0" mnemonicParsing="false" text="Results">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="buttonExit" layoutX="208.0" layoutY="226.0" mnemonicParsing="false" text="Exit" />
+         </children>
+      </Pane>
+   </children>
 </AnchorPane>
