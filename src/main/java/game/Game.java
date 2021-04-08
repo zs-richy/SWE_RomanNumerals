@@ -1,5 +1,7 @@
 package game;
 
+import org.pmw.tinylog.Logger;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +15,9 @@ public class Game {
     public Game() {
         solution = initSolution();
         this.field = initField();
+        Logger.info("Game object initialized.");
     }
+
 
     private List<String> initSolution() {
         List<String> solution;
@@ -40,5 +44,8 @@ public class Game {
         return field;
     }
 
+    public String getFieldXY(int x, int y) {
+        return this.field.get(x).get(y);
+    }
 
 }
