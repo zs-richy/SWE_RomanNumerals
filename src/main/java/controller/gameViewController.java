@@ -50,37 +50,34 @@ public class gameViewController {
         return color;
     }
 
-    public void move(Direction direction) {
-        Label currentLabel = labels.get(currentX).get(currentY);
+    public void move() {
+        Label currentLabel = labels.get(game.getCurrentX()).get(game.getCurrentY());
         currentLabel.setBorder(new Border(new BorderStroke(Color.BLACK,
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
     }
 
     @FXML
     public void gridPaneKeyPressed(KeyEvent e) {
-        Logger.info("key pressed");
-        move(Direction.UP);
+        Logger.info("Key pressed on gridPane.");
+        move();
         if (e.getCode() == KeyCode.UP) {
-            Logger.info("Key");
-            if (currentY > 0)
-                currentY--;
+            Logger.info("UP key");
+            move();
+            game.move(Direction.UP);
         }
         if (e.getCode() == KeyCode.DOWN) {
-            Logger.info("Key");
-            if (currentY < 6)
-                currentY++;
+            Logger.info("DOWN key");
+            game.move(Direction.DOWN);
         }
         if (e.getCode() == KeyCode.LEFT) {
-            Logger.info("Key");
-            if (currentX > 0)
-                currentX--;
+            Logger.info("LEFT key");
+            game.move(Direction.LEFT);
         }
         if (e.getCode() == KeyCode.RIGHT) {
-            Logger.info("Key");
-            if (currentX < 6)
-                currentX++;
+            Logger.info("RIGHT key");
+            game.move(Direction.RIGHT);
         }
-        labels.get(currentX).get(currentY).setBorder(new Border(new BorderStroke(Color.DARKBLUE,
+        labels.get(game.getCurrentX()).get(game.getCurrentY()).setBorder(new Border(new BorderStroke(Color.DARKBLUE,
                 BorderStrokeStyle.DASHED, CornerRadii.EMPTY, new BorderWidths(4, 4, 4, 4))));
     }
 
@@ -111,7 +108,7 @@ public class gameViewController {
             labels.add(iterateLabel);
         }
 
-        labels.get(currentX).get(currentY).setBorder(new Border(new BorderStroke(Color.DARKBLUE,
+        labels.get(game.getCurrentX()).get(game.getCurrentY()).setBorder(new Border(new BorderStroke(Color.DARKBLUE,
                 BorderStrokeStyle.DASHED, CornerRadii.EMPTY, new BorderWidths(4, 4, 4, 4))));
 
     }
