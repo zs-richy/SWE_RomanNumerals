@@ -97,9 +97,9 @@ public class gameViewController {
                 gridLabel.setPrefWidth(30);
                 gridLabel.setPrefHeight(30);
                 gridLabel.setAlignment(Pos.CENTER);
-                gridLabel.setText(game.getFieldXY(j,i));
+                gridLabel.setText(game.getFieldXY(i,j));
                 gridLabel.setFont((new Font(15)));
-                gridLabel.setStyle("-fx-font-weight: bold; -fx-background-color: " + getColor(j,i) + ";");
+                gridLabel.setStyle("-fx-font-weight: bold; -fx-background-color: " + getColor(i,j) + ";");
                 gridLabel.setBorder(new Border(new BorderStroke(Color.BLACK,
                         BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
                 gridPane.add((Node) gridLabel, i,j);
