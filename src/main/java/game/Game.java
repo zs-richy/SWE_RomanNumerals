@@ -11,13 +11,16 @@ public class Game {
 
     private List<String> solution;
     private List<List<String>> field;
+    private int currentX;
+    private int currentY;
 
     public Game() {
         solution = initSolution();
         this.field = initField();
+        currentX = 3;
+        currentY = 3;
         Logger.info("Game object initialized.");
     }
-
 
     private List<String> initSolution() {
         List<String> solution;
@@ -44,8 +47,58 @@ public class Game {
         return field;
     }
 
+    public int getCurrentX() {
+        return currentX;
+    }
+
+    public int getCurrentY() {
+        return currentY;
+    }
+
+
     public String getFieldXY(int x, int y) {
         return this.field.get(x).get(y);
+    }
+
+    public boolean canMove(Direction direction) {
+        boolean canMove = false;
+
+        switch(direction) {
+            case DOWN -> {
+                if (currentY < 6) {
+                    canMove = true;
+                }
+            }
+            case UP -> {
+                if (currentY > 0) {
+                    canMove = true;
+                }
+            }
+            case RIGHT -> {
+                if (currentX < 6) {
+                    canMove = true;
+                }
+            }
+            case LEFT -> {
+                if (currentX > 0) {
+                    canMove = true;
+                }
+            }
+        }
+
+        return canMove;
+
+    }
+
+    public void move(Direction direction) {
+        if (canMove(direction)) {
+            switch (direction) {
+                case UP -> currentY--;
+                case DOWN -> currentY++;
+                case LEFT -> currentX--;
+                case RIGHT -> currentX++;
+            }
+        }
     }
 
 }
