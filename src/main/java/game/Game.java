@@ -14,6 +14,7 @@ public class Game {
     private int currentX;
     private int currentY;
     private String state;
+    private int stateCounter;
 
     public Game() {
         solution = initSolution();
@@ -21,6 +22,7 @@ public class Game {
         currentX = 3;
         currentY = 3;
         state = "";
+        stateCounter = 0;
         Logger.info("Game object initialized.");
     }
 
@@ -109,8 +111,26 @@ public class Game {
     public void updateState() {
         if (!getFieldXY(currentX, currentY).equals("")) {
             state = state + getFieldXY(currentX, currentY);
+        } else {
+            if (isCorrectState()) {
+               Logger.info("Found the next component of the solution!");
+            } else {
+                Logger.info("You FAILED!");
+            }
+            state = "";
         }
         Logger.info("State updated :" + state);
+    }
+
+    public boolean isCorrectState() {
+        boolean correct = false;
+
+        if (state.equals(solution.get(stateCounter))) {
+            correct = true;
+            stateCounter++;
+        }
+
+        return correct;
     }
 
 }
