@@ -13,12 +13,14 @@ public class Game {
     private List<List<String>> field;
     private int currentX;
     private int currentY;
+    private String state;
 
     public Game() {
         solution = initSolution();
         this.field = initField();
         currentX = 3;
         currentY = 3;
+        state = "";
         Logger.info("Game object initialized.");
     }
 
@@ -57,7 +59,7 @@ public class Game {
 
 
     public String getFieldXY(int x, int y) {
-        return this.field.get(x).get(y);
+        return this.field.get(y).get(x);
     }
 
     public boolean canMove(Direction direction) {
@@ -98,7 +100,17 @@ public class Game {
                 case LEFT -> currentX--;
                 case RIGHT -> currentX++;
             }
+            updateState();
+        } else {
+            Logger.info("Can't move the given direction.");
         }
+    }
+
+    public void updateState() {
+        if (!getFieldXY(currentX, currentY).equals("")) {
+            state = state + getFieldXY(currentX, currentY);
+        }
+        Logger.info("State updated :" + state);
     }
 
 }
