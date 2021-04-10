@@ -47,6 +47,10 @@ public class gameViewController {
     TextField nameField;
     @FXML
     Label resultLabel;
+    @FXML
+    Label currentMoveLabel;
+    @FXML
+    Label nextGoalLabel;
 
     public String getColor(int x, int y) {
         String fieldXY = game.getFieldXY(x,y);
@@ -72,6 +76,10 @@ public class gameViewController {
     public void postMove() {
         labels.get(game.getCurrentX()).get(game.getCurrentY()).setBorder(new Border(new BorderStroke(Color.DARKBLUE,
                 BorderStrokeStyle.DASHED, CornerRadii.EMPTY, new BorderWidths(4, 4, 4, 4))));
+
+        currentMoveLabel.setText("Current move: " + game.getState());
+        nextGoalLabel.setText("Next goal: " + game.getSolution().get(game.getStateCounter()));
+
         if (game.getWon()) {
             updateViewWon();
         } else if(game.getLost()) {
@@ -166,7 +174,7 @@ public class gameViewController {
 
         labels.get(game.getCurrentX()).get(game.getCurrentY()).setBorder(new Border(new BorderStroke(Color.DARKBLUE,
                 BorderStrokeStyle.DASHED, CornerRadii.EMPTY, new BorderWidths(4, 4, 4, 4))));
-
+        nextGoalLabel.setText("Next goal: " + game.getSolution().get(game.getStateCounter()));
     }
 
 
