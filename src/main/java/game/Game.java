@@ -70,6 +70,12 @@ public class Game {
 
     public String getPlayerName() { return playerName; }
 
+    public String getState() { return state; }
+
+    public List<String> getSolution() { return solution; }
+
+    public int getStateCounter() { return stateCounter; }
+
     public void setPlayerName(String name) {
         this.playerName = name;
     }
