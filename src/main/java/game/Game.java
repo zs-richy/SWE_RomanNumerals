@@ -15,6 +15,9 @@ public class Game {
     private int currentY;
     private String state;
     private int stateCounter;
+    boolean won;
+    boolean lost;
+    String playerName;
 
     public Game() {
         solution = initSolution();
@@ -23,6 +26,8 @@ public class Game {
         currentY = 3;
         state = "";
         stateCounter = 0;
+        won = false;
+        lost = false;
         Logger.info("Game object initialized.");
     }
 
@@ -57,6 +62,16 @@ public class Game {
 
     public int getCurrentY() {
         return currentY;
+    }
+
+    public boolean getWon() { return won; }
+
+    public boolean getLost() { return lost; }
+
+    public String getPlayerName() { return playerName; }
+
+    public void setPlayerName(String name) {
+        this.playerName = name;
     }
 
 
@@ -114,7 +129,9 @@ public class Game {
         } else {
             if (isCorrectState()) {
                Logger.info("Found the next component of the solution!");
+               checkWinCondition();
             } else {
+                setLoseCondition();
                 Logger.info("You FAILED!");
             }
             state = "";
@@ -131,6 +148,17 @@ public class Game {
         }
 
         return correct;
+    }
+
+    public void checkWinCondition() {
+        if (stateCounter == 10) {
+            won = true;
+            Logger.info("You completed the puzzle!");
+        }
+    }
+
+    public void setLoseCondition() {
+        this.lost = true;
     }
 
 }
