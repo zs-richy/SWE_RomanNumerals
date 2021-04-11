@@ -1,5 +1,6 @@
 package main;
 
+import game.resultContainer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,6 +17,7 @@ public class RomanNumeralsApplication extends Application {
         stage.setResizable(false);
         stage.setScene(new Scene(root));
         stage.show();
+        resultContainer.readResults();
         Logger.info("Application started.");
         Logger.info("Main Menu loaded.");
     }
