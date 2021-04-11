@@ -15,9 +15,11 @@ public class Game {
     private int currentY;
     private String state;
     private int stateCounter;
-    boolean won;
-    boolean lost;
-    String playerName;
+    private boolean won;
+    private boolean lost;
+    private String playerName;
+    private double startTime;
+    private double endTime;
 
     public Game() {
         solution = initSolution();
@@ -29,6 +31,7 @@ public class Game {
         won = false;
         lost = false;
         Logger.info("Game object initialized.");
+        startTime = System.currentTimeMillis();
     }
 
     private List<String> initSolution() {
@@ -79,7 +82,6 @@ public class Game {
     public void setPlayerName(String name) {
         this.playerName = name;
     }
-
 
     public String getFieldXY(int x, int y) {
         return this.field.get(y).get(x);
@@ -157,14 +159,26 @@ public class Game {
     }
 
     public void checkWinCondition() {
-        if (stateCounter == 10) {
+        if (stateCounter == 5) {
             won = true;
+            setResult();
             Logger.info("You completed the puzzle!");
         }
     }
 
+
     public void setLoseCondition() {
         this.lost = true;
+        setResult();
     }
+
+    public void setResult() {
+        endTime = System.currentTimeMillis();
+        double completionTime = (endTime-startTime) / 1000;
+        Result result = new Result(playerName, stateCounter, completionTime);
+
+        Logger.info("Game result: " + result.toString());
+    }
+
 
 }
