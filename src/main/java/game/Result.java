@@ -2,7 +2,7 @@ package game;
 
 import java.time.format.DateTimeFormatter;
 
-public class Result {
+public class Result implements Comparable<Result> {
     private String name;
     private int state;
     private double time;
@@ -15,6 +15,14 @@ public class Result {
         this.date = java.time.LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
     }
 
+    public int getState() {
+        return this.state;
+    }
+
+    public double getTime() {
+        return this.time;
+    }
+
     @Override
     public String toString() {
         return "Result{" +
@@ -23,5 +31,14 @@ public class Result {
                 ", time=" + time +
                 ", date='" + date + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Result other) {
+        final int stateComparison = Integer.compare(state, other.getState());
+        if (stateComparison != 0) {
+            return stateComparison;
+        }
+        return Double.compare(other.getTime(), time);
     }
 }
