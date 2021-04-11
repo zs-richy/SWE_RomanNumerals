@@ -179,7 +179,6 @@ public class Game {
 
         Logger.info("Game result: " + result.toString());
         resultContainer.addResult(result);
-        resultContainer.orderResults();
     }
 
 
