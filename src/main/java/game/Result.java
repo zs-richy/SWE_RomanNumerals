@@ -12,7 +12,11 @@ public class Result implements Comparable<Result> {
         this.name = name;
         this.state = state;
         this.time = time;
-        this.date = java.time.LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+        this.date = java.time.LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd."));
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public int getState() {
@@ -21,6 +25,10 @@ public class Result implements Comparable<Result> {
 
     public double getTime() {
         return this.time;
+    }
+
+    public String getDate() {
+        return this.date;
     }
 
     @Override
