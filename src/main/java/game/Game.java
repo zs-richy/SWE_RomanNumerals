@@ -178,6 +178,8 @@ public class Game {
         Result result = new Result(playerName, stateCounter, completionTime);
 
         Logger.info("Game result: " + result.toString());
+        resultContainer.addResult(result);
+        resultContainer.orderResults();
     }
 
 
