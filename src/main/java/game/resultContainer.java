@@ -12,7 +12,8 @@ public class resultContainer {
     }
 
     public static void orderResults() {
-        Collections.sort(results);
+        Collections.sort(results, Collections.reverseOrder());
+        System.out.println(results);
     }
 
 }
