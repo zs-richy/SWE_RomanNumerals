@@ -2,10 +2,15 @@ package game;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import main.Main;
+import org.pmw.tinylog.Logger;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class resultContainer {
@@ -13,13 +18,8 @@ public class resultContainer {
 
     public static void addResult(Result result)  {
         results.add(result);
-        ObjectMapper om = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
-        File file = new File("asd.json");
-        try {
-            om.writeValue(file, results);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        orderResults();
+        writeResults();
     }
 
     public static void orderResults() {
@@ -29,6 +29,35 @@ public class resultContainer {
 
     public static ArrayList<Result> getResults() {
         return results;
+    }
+
+    public static void writeResults() {
+        ObjectMapper om = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+
+        try {
+            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+            FileWriter writer = new FileWriter("results.json");
+            //FileWriter writer = new FileWriter(loader.getResource("results/results.json").getFile());
+            om.writeValue(writer, results);
+            writer.close();
+            Logger.info("Game results written to file.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void readResults() {
+        ObjectMapper om = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+
+        try {
+            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+            Result[] res = om.readValue(new File("results.json"), Result[].class);
+            //Result[] res = om.readValue(new FileReader(loader.getResource("results/results.json").getFile()), Result[].class);
+            results = new ArrayList<>(Arrays.asList(res));
+            Logger.info("Game results read from file.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

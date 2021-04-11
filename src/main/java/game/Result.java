@@ -8,6 +8,10 @@ public class Result implements Comparable<Result> {
     private double time;
     private String date;
 
+    public Result() {
+
+    }
+
     public Result(String name, int state, double time) {
         this.name = name;
         this.state = state;
