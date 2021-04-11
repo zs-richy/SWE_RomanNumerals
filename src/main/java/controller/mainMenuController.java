@@ -32,6 +32,12 @@ public class mainMenuController {
         loadScene(scene, "gameView");
     }
 
+    public void resultsPressed(ActionEvent e) throws IOException {
+        Stage scene = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        Logger.info("Loading gameView fxml.");
+        loadScene(scene, "resultView");
+    }
+
     public void initialize() {
         mainPane.setFocusTraversable(true);
     }
