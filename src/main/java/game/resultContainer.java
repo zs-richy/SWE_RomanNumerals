@@ -16,4 +16,8 @@ public class resultContainer {
         System.out.println(results);
     }
 
+    public static ArrayList<Result> getResults() {
+        return results;
+    }
+
 }
