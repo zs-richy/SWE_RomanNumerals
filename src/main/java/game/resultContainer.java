@@ -59,6 +59,7 @@ public class resultContainer {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        orderResults();
     }
 
 }
