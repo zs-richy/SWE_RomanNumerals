@@ -13,20 +13,21 @@
     <children>
         <AnchorPane fx:id="paneStart" layoutX="50.0" layoutY="116.0">
             <children>
-                <Button fx:id="startButton" layoutX="192.0" layoutY="100.0" mnemonicParsing="false" onAction="#startButtonClicked" prefHeight="25.0" prefWidth="116.0" text="Start" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="192.0" AnchorPane.rightAnchor="192.0" AnchorPane.topAnchor="100.0">
+                <Button fx:id="startButton" layoutX="183.0" layoutY="78.0" mnemonicParsing="false" onAction="#startButtonClicked" prefHeight="25.0" prefWidth="116.0" text="Start" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="183.0" AnchorPane.rightAnchor="201.0" AnchorPane.topAnchor="78.0">
                <font>
                   <Font size="20.0" />
                </font></Button>
-                <Label fx:id="resultLabel1" contentDisplay="CENTER" layoutX="120.0" layoutY="53.0" maxHeight="32.0" maxWidth="300.0" minHeight="32.0" minWidth="130.0" prefHeight="32.0" prefWidth="130.0" text="Enter name:" textAlignment="CENTER" textFill="#098d00" textOverrun="CLIP">
+                <Label fx:id="resultLabel1" contentDisplay="CENTER" layoutX="111.0" layoutY="40.0" maxHeight="32.0" maxWidth="300.0" minHeight="32.0" minWidth="130.0" prefHeight="32.0" prefWidth="130.0" text="Enter name:" textAlignment="CENTER" textFill="#098d00" textOverrun="CLIP">
                     <font>
                         <Font name="System Bold" size="22.0" />
                     </font>
                 </Label>
-            <TextField fx:id="nameField" layoutX="249.0" layoutY="57.0" onAction="#startButtonClicked" promptText="Anonymous">
+            <TextField fx:id="nameField" layoutX="241.0" layoutY="42.0" onAction="#startButtonClicked" promptText="Anonymous">
                <font>
                   <Font size="14.0" />
                </font>
             </TextField>
+            <Button fx:id="backButton" layoutX="222.0" layoutY="130.0" mnemonicParsing="false" onAction="#backButtonClicked" text="Back" />
             </children>
         </AnchorPane>
         <AnchorPane fx:id="paneGame" prefHeight="400.0" prefWidth="600.0" visible="false">
