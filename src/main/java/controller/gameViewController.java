@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.pmw.tinylog.Logger;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -155,6 +156,14 @@ public class gameViewController {
         game.setStartTimer();
         paneGame.setVisible(true);
         paneStart.setVisible(false);
+    }
+
+    public void backButtonClicked(ActionEvent e) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/mainMenu.fxml"));
+        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        Parent root = fxmlLoader.load();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     @FXML
