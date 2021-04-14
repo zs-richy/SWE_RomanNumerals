@@ -131,6 +131,9 @@ public class gameViewController {
 
     public void updateViewLost() {
         game.setEndTimer();
+        Label currentLabel = labels.get(game.getCurrentX()).get(game.getCurrentY());
+        currentLabel.setBorder(new Border(new BorderStroke(Color.BLACK,
+                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         timeline.stop();
         paneGame.setDisable(true);
         resultLabel.setText("You failed " + game.getPlayerName());
@@ -155,6 +158,8 @@ public class gameViewController {
         }
         game.setStartTimer();
         paneGame.setVisible(true);
+        paneGame.setDisable(false);
+        paneGame.setOpacity(100);
         paneStart.setVisible(false);
     }
 
@@ -166,31 +171,39 @@ public class gameViewController {
         stage.show();
     }
 
+    public void retryButtonClicked() {
+        paneGame.setVisible(false);
+        paneResult.setVisible(false);
+        paneStart.setVisible(true);
+        initialize();
+    }
+
     @FXML
     public void initialize() {
         gridPane.setFocusTraversable(true);
-        labels = new ArrayList<ArrayList<Label>>();
         gridPane.setHgap(0.25);
         gridPane.setVgap(0.25);
         game = new Game();
 
-
-        for (int i = 0; i < 7; i++) {
-            ArrayList<Label> iterateLabel = new ArrayList<Label>();
-            for (int j = 0; j < 7; j++) {
-                Label gridLabel = new Label();
-                gridLabel.setPrefWidth(40);
-                gridLabel.setPrefHeight(40);
-                gridLabel.setAlignment(Pos.CENTER);
-                gridLabel.setText(game.getFieldXY(i,j));
-                gridLabel.setFont((new Font(20)));
-                gridLabel.setStyle("-fx-font-weight: bold; -fx-background-color: " + getColor(i,j) + ";");
-                gridLabel.setBorder(new Border(new BorderStroke(Color.BLACK,
-                        BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-                gridPane.add((Node) gridLabel, i,j);
-                iterateLabel.add(gridLabel);
+        if (gridPane.getChildren().size() == 0) {
+            labels = new ArrayList<ArrayList<Label>>();
+            for (int i = 0; i < 7; i++) {
+                ArrayList<Label> iterateLabel = new ArrayList<Label>();
+                for (int j = 0; j < 7; j++) {
+                    Label gridLabel = new Label();
+                    gridLabel.setPrefWidth(40);
+                    gridLabel.setPrefHeight(40);
+                    gridLabel.setAlignment(Pos.CENTER);
+                    gridLabel.setText(game.getFieldXY(i, j));
+                    gridLabel.setFont((new Font(20)));
+                    gridLabel.setStyle("-fx-background-color: " + getColor(i, j) + ";" + "-fx-font-weight: bold;");
+                    gridLabel.setBorder(new Border(new BorderStroke(Color.BLACK,
+                            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+                    gridPane.add((Node) gridLabel, i, j);
+                    iterateLabel.add(gridLabel);
+                }
+                labels.add(iterateLabel);
             }
-            labels.add(iterateLabel);
         }
 
         labels.get(game.getCurrentX()).get(game.getCurrentY()).setBorder(new Border(new BorderStroke(Color.DARKBLUE,
@@ -209,6 +222,7 @@ public class gameViewController {
         );
         timeline.setCycleCount( Animation.INDEFINITE );
         timeline.play();
+        System.out.println(gridPane.getChildren().stream().count());
     }
 
 
