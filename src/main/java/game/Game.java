@@ -1,5 +1,7 @@
 package game;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.pmw.tinylog.Logger;
 
 import java.lang.reflect.Array;
@@ -7,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Getter
+@Setter
 public class Game {
 
     private List<String> solution;
@@ -59,39 +63,14 @@ public class Game {
         return field;
     }
 
-    public int getCurrentX() {
-        return currentX;
-    }
-
-    public int getCurrentY() {
-        return currentY;
-    }
-
-    public boolean getWon() { return won; }
-
-    public boolean getLost() { return lost; }
-
-    public String getPlayerName() { return playerName; }
-
-    public String getState() { return state; }
-
-    public List<String> getSolution() { return solution; }
-
-    public int getStateCounter() { return stateCounter; }
-
-    public void setPlayerName(String name) {
-        this.playerName = name;
-    }
-
     public String getFieldXY(int x, int y) {
         return this.field.get(y).get(x);
     }
 
-    public double getStartTime() { return this.startTime; }
-
     public void setStartTimer() { this.startTime = System.currentTimeMillis(); }
 
     public void setEndTimer() { this.endTime = System.currentTimeMillis(); }
+
 
     public boolean canMove(Direction direction) {
         boolean canMove = false;
