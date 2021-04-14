@@ -31,7 +31,7 @@ public class Game {
         won = false;
         lost = false;
         Logger.info("Game object initialized.");
-        startTime = System.currentTimeMillis();
+        startTime = 0;
     }
 
     private List<String> initSolution() {
@@ -86,6 +86,12 @@ public class Game {
     public String getFieldXY(int x, int y) {
         return this.field.get(y).get(x);
     }
+
+    public double getStartTime() { return this.startTime; }
+
+    public void setStartTimer() { this.startTime = System.currentTimeMillis(); }
+
+    public void setEndTimer() { this.endTime = System.currentTimeMillis(); }
 
     public boolean canMove(Direction direction) {
         boolean canMove = false;
@@ -159,7 +165,7 @@ public class Game {
     }
 
     public void checkWinCondition() {
-        if (stateCounter == 5) {
+        if (stateCounter == 40) {
             won = true;
             setResult();
             Logger.info("You completed the puzzle!");
