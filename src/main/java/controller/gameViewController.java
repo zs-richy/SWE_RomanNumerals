@@ -89,9 +89,9 @@ public class gameViewController {
         currentMoveLabel.setText("Current move: " + game.getState());
         nextGoalLabel.setText("Next goal: " + game.getSolution().get(game.getStateCounter()));
 
-        if (game.getWon()) {
+        if (game.isWon()) {
             updateViewWon();
-        } else if(game.getLost()) {
+        } else if(game.isLost()) {
             updateViewLost();
         }
     }
