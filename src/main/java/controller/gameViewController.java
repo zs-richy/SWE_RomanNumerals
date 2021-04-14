@@ -2,6 +2,9 @@ package controller;
 
 import game.Direction;
 import game.Game;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,9 +21,12 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.pmw.tinylog.Logger;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class gameViewController {
@@ -51,6 +57,9 @@ public class gameViewController {
     Label currentMoveLabel;
     @FXML
     Label nextGoalLabel;
+    @FXML
+    Label timeLabel;
+    Timeline timeline;
 
     public String getColor(int x, int y) {
         String fieldXY = game.getFieldXY(x,y);
@@ -120,6 +129,8 @@ public class gameViewController {
     }
 
     public void updateViewLost() {
+        game.setEndTimer();
+        timeline.stop();
         paneGame.setDisable(true);
         resultLabel.setText("You failed " + game.getPlayerName());
         resultLabel.setTextFill(Color.RED);
@@ -141,6 +152,7 @@ public class gameViewController {
         } else {
             game.setPlayerName(nameField.getText());
         }
+        game.setStartTimer();
         paneGame.setVisible(true);
         paneStart.setVisible(false);
     }
@@ -175,6 +187,19 @@ public class gameViewController {
         labels.get(game.getCurrentX()).get(game.getCurrentY()).setBorder(new Border(new BorderStroke(Color.DARKBLUE,
                 BorderStrokeStyle.DASHED, CornerRadii.EMPTY, new BorderWidths(4, 4, 4, 4))));
         nextGoalLabel.setText("Next goal: " + game.getSolution().get(game.getStateCounter()));
+
+        DateFormat timeFormat = new SimpleDateFormat( "mm:ss.S" );
+        timeline =  new Timeline(
+                new KeyFrame(
+                        Duration.millis(10),
+                        event -> {
+                            final double diff =  System.currentTimeMillis() - game.getStartTime();
+                            timeLabel.setText( timeFormat.format( diff ) );
+                        }
+                )
+        );
+        timeline.setCycleCount( Animation.INDEFINITE );
+        timeline.play();
     }
 
 
