@@ -122,7 +122,9 @@ public class gameViewController {
 
     public void updateViewWon() {
         paneGame.setDisable(true);
-        resultLabel.setText("Congrats  " + game.getPlayerName() + "!\nYou completed the puzzle!");
+        timeLabel.setVisible(false);
+        resultLabel.setText("Congrats  " + game.getPlayerName() + "!\nYou completed the puzzle in:\n" +
+                game.getResult().getTime() + " sec!");
         resultLabel.setTextFill(Color.GREEN);
         resultLabel.setAlignment(Pos.CENTER);
         paneGame.setOpacity(0.1);
@@ -135,8 +137,10 @@ public class gameViewController {
         currentLabel.setBorder(new Border(new BorderStroke(Color.BLACK,
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         timeline.stop();
+        timeLabel.setVisible(false);
         paneGame.setDisable(true);
-        resultLabel.setText("You failed " + game.getPlayerName());
+        resultLabel.setText("You failed " + game.getPlayerName() + "\nYou reached state " + game.getResult().getState() +
+                " in " + game.getResult().getTime() + " sec!");
         resultLabel.setTextFill(Color.RED);
         resultLabel.setAlignment(Pos.CENTER);
         paneGame.setOpacity(0.1);
@@ -158,6 +162,7 @@ public class gameViewController {
         }
         game.setStartTimer();
         paneGame.setVisible(true);
+        timeLabel.setVisible(true);
         paneGame.setDisable(false);
         paneGame.setOpacity(100);
         paneStart.setVisible(false);
