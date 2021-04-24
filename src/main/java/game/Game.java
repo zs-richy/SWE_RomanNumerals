@@ -147,7 +147,7 @@ public class Game {
     public void checkWinCondition() {
         if (stateCounter == 40) {
             won = true;
-            setResult();
+            calculateResult();
             Logger.info("You completed the puzzle!");
         }
     }
@@ -155,10 +155,10 @@ public class Game {
 
     public void setLoseCondition() {
         this.lost = true;
-        setResult();
+        calculateResult();
     }
 
-    public void setResult() {
+    public void calculateResult() {
         endTime = System.currentTimeMillis();
         double completionTime = (endTime-startTime) / 1000;
         result = new Result(playerName, stateCounter, completionTime);
