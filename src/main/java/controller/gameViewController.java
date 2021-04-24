@@ -2,6 +2,7 @@ package controller;
 
 import game.Direction;
 import game.Game;
+import game.resultContainer;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -129,6 +130,7 @@ public class gameViewController {
         resultLabel.setAlignment(Pos.CENTER);
         paneGame.setOpacity(0.1);
         paneResult.setVisible(true);
+        resultContainer.addResult(game.getResult());
     }
 
     public void updateViewLost() {
@@ -145,6 +147,7 @@ public class gameViewController {
         resultLabel.setAlignment(Pos.CENTER);
         paneGame.setOpacity(0.1);
         paneResult.setVisible(true);
+        resultContainer.addResult(game.getResult());
     }
 
     public void loadMainMenu(ActionEvent e) throws IOException {
