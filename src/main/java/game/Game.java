@@ -24,6 +24,7 @@ public class Game {
     private String playerName;
     private double startTime;
     private double endTime;
+    private Result result;
 
     public Game() {
         solution = initSolution();
@@ -160,7 +161,7 @@ public class Game {
     public void setResult() {
         endTime = System.currentTimeMillis();
         double completionTime = (endTime-startTime) / 1000;
-        Result result = new Result(playerName, stateCounter, completionTime);
+        result = new Result(playerName, stateCounter, completionTime);
 
         Logger.info("Game result: " + result.toString());
         resultContainer.addResult(result);
