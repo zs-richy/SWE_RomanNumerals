@@ -55,17 +55,17 @@ class GameTest {
     }
 
     @Test
-    void checkWinCondition() {
+    void updateWinCondition() {
         testGame = new Game();
         testGame.setStateCounter(40);
-        testGame.checkWinCondition();
+        testGame.updateWinCondition();
         assertTrue(testGame.isWon());
     }
 
     @Test
     void setLoseCondition() {
         testGame = new Game();
-        testGame.setLoseCondition();
+        testGame.updateLoseCondition();
         assertTrue(testGame.isLost());
     }
 
