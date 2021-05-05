@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Class that contains the game logic.
+ */
+
 @Getter
 @Setter
 public class Game {
@@ -31,6 +35,9 @@ public class Game {
     private double endTime;
     private Result result;
 
+    /**
+     * Creates a {@code Game} object.
+     */
     public Game() {
         solution = initSolution();
         this.field = initField();
@@ -44,6 +51,11 @@ public class Game {
         Logger.info("Game object initialized.");
     }
 
+    /**
+     * Initialize the puzzle solution.
+     *
+     * @return a list with the solution
+     */
     private List<String> initSolution() {
         List<String> solution;
         solution = Arrays.asList("I","II","III","IV","V","VI","VII","VIII","IX","X",
@@ -54,6 +66,11 @@ public class Game {
         return solution;
     }
 
+    /**
+     * Initialize the game board.
+     *
+     * @return a list with the fields on the board
+     */
     private List<List<String>> initField() {
         List<List<String>> field;
         field = Arrays.asList(
@@ -69,19 +86,39 @@ public class Game {
         return field;
     }
 
+    /**
+     * Returns the specified field of the game board.
+     * The origin of indexes is the top-left corner!
+     *
+     * @param x row of the element to get
+     * @param y column of the element to get
+     * @return the field corresponding to (x,y) coordinate
+     */
     public String getFieldXY(int x, int y) {
         return this.field.get(y).get(x);
     }
 
+    /**
+     * Sets the start time to current time.
+     */
     public void setStartTimer() {
         this.startTime = System.currentTimeMillis();
     }
 
+    /**
+     * Sets the end time to current time.
+     */
     public void setEndTimer() {
         this.endTime = System.currentTimeMillis();
     }
 
-
+    /**
+     * Checks if it is possible to move in the given direction.
+     *
+     * @param direction the direction of the movement
+     * @return {@code true} if possible to move in the specified direction;
+     *         {@code false} otherwise
+     */
     public boolean canMove(Direction direction) {
         boolean canMove = false;
 
@@ -112,6 +149,12 @@ public class Game {
 
     }
 
+    /**
+     * Handles the movement in the given direction.
+     * Moves in the give direction if possible and updates the game state
+     * accordingly with {@code updateState()} method.
+     * @param direction the direction of the movement
+     */
     public void move(Direction direction) {
         if (canMove(direction)) {
             switch (direction) {
@@ -126,15 +169,22 @@ public class Game {
         }
     }
 
+    /**
+     * Updates the game state based on the current coordinates.
+     * Concatenates the current field's value to previous state
+     * if it's not an empty field. If the field is empty checks
+     * for win/lose condition.
+     */
     public void updateState() {
         if (!getFieldXY(currentX, currentY).equals("")) {
             state = state + getFieldXY(currentX, currentY);
         } else {
             if (isCorrectState()) {
-               Logger.info("Found the next component of the solution!");
-               checkWinCondition();
+                stateCounter++;
+                Logger.info("Found the next component of the solution!");
+                updateWinCondition();
             } else {
-                setLoseCondition();
+                updateLoseCondition();
                 Logger.info("You FAILED!");
             }
             state = "";
@@ -142,18 +192,28 @@ public class Game {
         Logger.info("State updated :" + state);
     }
 
+    /**
+     * Checks if the current state corresponds to the puzzle solution.
+     *
+     * @return {@code true} if the current state is the next component
+     * of the solution; {@code false} otherwise
+     */
     public boolean isCorrectState() {
         boolean correct = false;
 
         if (state.equals(solution.get(stateCounter))) {
             correct = true;
-            stateCounter++;
         }
 
         return correct;
     }
 
-    public void checkWinCondition() {
+    /**
+     * Ends the game if the player has completed the puzzle.
+     * Ends the game and calls {@code calculateResult()} method
+     * to calculate the game results.
+     */
+    public void updateWinCondition() {
         if (stateCounter == 40) {
             won = true;
             calculateResult();
@@ -161,12 +221,19 @@ public class Game {
         }
     }
 
-
-    public void setLoseCondition() {
+    /**
+     * Ends the game if the player failed to complete the puzzle.
+     * Ends the game and calls {@code calculateResult()} method
+     * to calculate the game results.
+     */
+    public void updateLoseCondition() {
         this.lost = true;
         calculateResult();
     }
 
+    /**
+     * Calculates the game results.
+     */
     public void calculateResult() {
         endTime = System.currentTimeMillis();
         double completionTime = (endTime-startTime) / 1000;
