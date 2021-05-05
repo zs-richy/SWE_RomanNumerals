@@ -90,15 +90,14 @@ public class gameViewController {
     public void postMove() {
         currentLabel = labels.get(game.getCurrentX()).get(game.getCurrentY());
         setBlueBorder(currentLabel);
-        currentMoveLabel.setText("Current move: " + game.getState());
-        nextGoalLabel.setText("Next goal: " + game.getSolution().get(game.getStateCounter()));
-
         if (game.isWon()) {
             updateViewWon();
         } else if(game.isLost()) {
             updateViewLost();
+        } else {
+            currentMoveLabel.setText("Current move: " + game.getState());
+            nextGoalLabel.setText("Next goal: " + game.getSolution().get(game.getStateCounter()));
         }
-
     }
 
     @FXML
@@ -127,7 +126,8 @@ public class gameViewController {
     public void updateViewWon() {
         paneGame.setDisable(true);
         timeLabel.setVisible(false);
-        resultLabel.setText("Congrats  " + game.getPlayerName() + "!\nYou completed the puzzle in:\n" +
+        setBlackBorder(currentLabel);
+        resultLabel.setText("Congrats  " + game.getPlayerName() + "!\nYou completed the puzzle in: " +
                 game.getResult().getTime() + " sec!");
         resultLabel.setTextFill(Color.GREEN);
         resultLabel.setAlignment(Pos.CENTER);
@@ -139,8 +139,7 @@ public class gameViewController {
     public void updateViewLost() {
         game.setEndTimer();
         currentLabel = labels.get(game.getCurrentX()).get(game.getCurrentY());
-        currentLabel.setBorder(new Border(new BorderStroke(Color.BLACK,
-                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        setBlackBorder(currentLabel);
         timeline.stop();
         timeLabel.setVisible(false);
         paneGame.setDisable(true);
