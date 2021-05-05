@@ -12,7 +12,7 @@ public class RomanNumeralsApplication extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/mainMenu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainMenu.fxml"));
         stage.setTitle("Logic Game");
         stage.setResizable(false);
         stage.setScene(new Scene(root));

@@ -14,10 +14,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class resultViewController {
+public class ResultViewController {
 
     @FXML
     TableView resultTable;
@@ -32,7 +31,7 @@ public class resultViewController {
 
     public void handleBackButton(ActionEvent e) throws IOException {
         Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/mainMenu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainMenu.fxml"));
         stage.setScene(new Scene(root));
         stage.show();
     }

@@ -12,7 +12,7 @@ import org.pmw.tinylog.Logger;
 
 import java.io.IOException;
 
-public class mainMenuController {
+public class MainMenuController {
 
     @FXML
     AnchorPane mainPane;

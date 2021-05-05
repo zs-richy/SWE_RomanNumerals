@@ -6,8 +6,6 @@ import game.resultContainer;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
@@ -34,7 +32,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class gameViewController {
+public class GameViewController {
     Game game;
     ArrayList<ArrayList<Label>> labels;
     IntegerProperty currentX = new SimpleIntegerProperty();
@@ -154,7 +152,7 @@ public class gameViewController {
 
     public void loadMainMenu(ActionEvent e) throws IOException {
         Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/mainMenu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainMenu.fxml"));
         stage.setScene(new Scene(root));
         stage.show();
     }
@@ -174,7 +172,7 @@ public class gameViewController {
     }
 
     public void backButtonClicked(ActionEvent e) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/mainMenu.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/MainMenu.fxml"));
         Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         Parent root = fxmlLoader.load();
         stage.setScene(new Scene(root));
