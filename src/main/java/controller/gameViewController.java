@@ -6,6 +6,10 @@ import game.resultContainer;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.IntegerBinding;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +29,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.pmw.tinylog.Logger;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -34,8 +37,8 @@ import java.util.ArrayList;
 public class gameViewController {
     Game game;
     ArrayList<ArrayList<Label>> labels;
-    int currentX = 3;
-    int currentY = 3;
+    IntegerProperty currentX = new SimpleIntegerProperty();
+    IntegerProperty currentY = new SimpleIntegerProperty();
 
     @FXML
     GridPane gridPane;
@@ -62,6 +65,7 @@ public class gameViewController {
     @FXML
     Label timeLabel;
     Timeline timeline;
+    Label currentLabel;
 
     public String getColor(int x, int y) {
         String fieldXY = game.getFieldXY(x,y);
@@ -79,15 +83,13 @@ public class gameViewController {
 
 
     public void preMove() {
-        Label currentLabel = labels.get(game.getCurrentX()).get(game.getCurrentY());
-        currentLabel.setBorder(new Border(new BorderStroke(Color.BLACK,
-                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        currentLabel = labels.get(game.getCurrentX()).get(game.getCurrentY());
+        setBlackBorder(currentLabel);
     }
 
     public void postMove() {
-        labels.get(game.getCurrentX()).get(game.getCurrentY()).setBorder(new Border(new BorderStroke(Color.DARKBLUE,
-                BorderStrokeStyle.DASHED, CornerRadii.EMPTY, new BorderWidths(4, 4, 4, 4))));
-
+        currentLabel = labels.get(game.getCurrentX()).get(game.getCurrentY());
+        setBlueBorder(currentLabel);
         currentMoveLabel.setText("Current move: " + game.getState());
         nextGoalLabel.setText("Next goal: " + game.getSolution().get(game.getStateCounter()));
 
@@ -96,6 +98,7 @@ public class gameViewController {
         } else if(game.isLost()) {
             updateViewLost();
         }
+
     }
 
     @FXML
@@ -135,7 +138,7 @@ public class gameViewController {
 
     public void updateViewLost() {
         game.setEndTimer();
-        Label currentLabel = labels.get(game.getCurrentX()).get(game.getCurrentY());
+        currentLabel = labels.get(game.getCurrentX()).get(game.getCurrentY());
         currentLabel.setBorder(new Border(new BorderStroke(Color.BLACK,
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         timeline.stop();
@@ -186,6 +189,16 @@ public class gameViewController {
         initialize();
     }
 
+    public void setBlackBorder(Label label) {
+        label.setBorder(new Border(new BorderStroke(Color.BLACK,
+                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+    }
+
+    public void setBlueBorder(Label label) {
+        label.setBorder(new Border(new BorderStroke(Color.DARKBLUE,
+                BorderStrokeStyle.DASHED, CornerRadii.EMPTY, new BorderWidths(4, 4, 4, 4))));
+    }
+
     @FXML
     public void initialize() {
         gridPane.setFocusTraversable(true);
@@ -230,7 +243,6 @@ public class gameViewController {
         );
         timeline.setCycleCount( Animation.INDEFINITE );
         timeline.play();
-        System.out.println(gridPane.getChildren().stream().count());
     }
 
 

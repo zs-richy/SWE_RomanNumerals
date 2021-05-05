@@ -1,5 +1,10 @@
 package game;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import lombok.Getter;
 import lombok.Setter;
 import org.pmw.tinylog.Logger;
@@ -68,9 +73,13 @@ public class Game {
         return this.field.get(y).get(x);
     }
 
-    public void setStartTimer() { this.startTime = System.currentTimeMillis(); }
+    public void setStartTimer() {
+        this.startTime = System.currentTimeMillis();
+    }
 
-    public void setEndTimer() { this.endTime = System.currentTimeMillis(); }
+    public void setEndTimer() {
+        this.endTime = System.currentTimeMillis();
+    }
 
 
     public boolean canMove(Direction direction) {
