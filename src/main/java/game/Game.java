@@ -35,8 +35,8 @@ public class Game {
         stateCounter = 0;
         won = false;
         lost = false;
-        Logger.info("Game object initialized.");
         startTime = 0;
+        Logger.info("Game object initialized.");
     }
 
     private List<String> initSolution() {

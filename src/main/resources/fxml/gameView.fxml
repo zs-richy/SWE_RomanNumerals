@@ -73,7 +73,7 @@
             <children>
             <Button fx:id="buttonRetry" layoutX="178.0" layoutY="84.0" mnemonicParsing="false" onAction="#retryButtonClicked" text="Retry" />
                 <Button fx:id="mainMenuButton" ellipsisString="asd" layoutX="130.0" layoutY="119.0" mnemonicParsing="false" onAction="#loadMainMenu" text="Back to main menu" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0" AnchorPane.topAnchor="119.0" />
-                <Label fx:id="resultLabel" contentDisplay="CENTER" layoutX="20.0" layoutY="5.0" maxHeight="65.0" maxWidth="360.0" minHeight="32.0" minWidth="300.0" prefHeight="65.0" prefWidth="360.0" textAlignment="CENTER" textFill="#098d00" textOverrun="CLIP" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="5.0">
+                <Label fx:id="resultLabel" contentDisplay="CENTER" layoutX="7.0" layoutY="5.0" maxHeight="65.0" maxWidth="386.0" minHeight="32.0" minWidth="300.0" prefHeight="65.0" prefWidth="386.0" textAlignment="CENTER" textFill="#098d00" textOverrun="CLIP" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="5.0">
                     <font>
                         <Font name="System Bold" size="22.0" />
                     </font>
