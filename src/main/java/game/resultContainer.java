@@ -14,15 +14,25 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+/**
+ * Class that holds the result objects.
+ */
 public class resultContainer {
     private static ArrayList<Result>  results = new ArrayList<>();
 
+    /**
+     * Adds a result to the existing results.
+     * @param result the result to be added to the container
+     */
     public static void addResult(Result result)  {
         results.add(result);
         orderResults();
         writeResults();
     }
 
+    /**
+     * Orders the results in the container.
+     */
     public static void orderResults() {
         Collections.sort(results, Collections.reverseOrder());
     }
@@ -31,6 +41,9 @@ public class resultContainer {
         return results;
     }
 
+    /**
+     * Writes the results to a JSON file.
+     */
     public static void writeResults() {
         ObjectMapper om = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 
@@ -46,6 +59,9 @@ public class resultContainer {
         }
     }
 
+    /**
+     * Reads the results from a JSON file.
+     */
     public static void readResults() {
         ObjectMapper om = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 

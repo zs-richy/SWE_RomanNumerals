@@ -2,16 +2,29 @@ package game;
 
 import java.time.format.DateTimeFormatter;
 
+
+/**
+ * Class that wraps a game result.
+ */
 public class Result implements Comparable<Result> {
     private String name;
     private int state;
     private double time;
     private String date;
 
+    /**
+     * No args constructor.
+     */
     public Result() {
 
     }
 
+    /**
+     * Parametrized constructor.
+     * @param name the player name
+     * @param state the reached state
+     * @param time the elapsed time to reach the given state
+     */
     public Result(String name, int state, double time) {
         this.name = name;
         this.state = state;
@@ -35,6 +48,7 @@ public class Result implements Comparable<Result> {
         return this.date;
     }
 
+
     @Override
     public String toString() {
         return "Result{" +
@@ -45,6 +59,14 @@ public class Result implements Comparable<Result> {
                 '}';
     }
 
+    /**
+     * Compares two Result objects.
+     * Comparing is based on the reached state. If the states are equal
+     * then compare the elapsed time.
+     *
+     * @param other the compared Result object
+     * @return the order (1: better, 0: equal, -1: worse)
+     */
     @Override
     public int compareTo(Result other) {
         final int stateComparison = Integer.compare(state, other.getState());
