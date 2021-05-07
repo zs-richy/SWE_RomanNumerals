@@ -38,6 +38,10 @@ public class MainMenuController {
         loadScene(scene, "resultView");
     }
 
+    public void exitPressed(ActionEvent e) {
+        System.exit(0);
+    }
+
     public void initialize() {
         mainPane.setFocusTraversable(true);
     }

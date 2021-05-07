@@ -19,7 +19,7 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="buttonExit" layoutX="208.0" layoutY="226.0" mnemonicParsing="false" text="Exit" />
+            <Button fx:id="buttonExit" layoutX="208.0" layoutY="226.0" mnemonicParsing="false" onAction="#exitPressed" text="Exit" />
          </children>
       </Pane>
    </children>
