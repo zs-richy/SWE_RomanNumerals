@@ -66,7 +66,7 @@ public class GameViewController {
     Label currentLabel;
 
     public String getColor(int x, int y) {
-        String fieldXY = game.getFieldXY(x,y);
+        String fieldXY = game.getFieldByCoord(x,y);
         String color = "black";
         switch (fieldXY) {
             case "I": color = "yellow"; break;
@@ -212,7 +212,7 @@ public class GameViewController {
                     gridLabel.setPrefWidth(40);
                     gridLabel.setPrefHeight(40);
                     gridLabel.setAlignment(Pos.CENTER);
-                    gridLabel.setText(game.getFieldXY(i, j));
+                    gridLabel.setText(game.getFieldByCoord(i, j));
                     gridLabel.setFont((new Font(20)));
                     gridLabel.setStyle("-fx-background-color: " + getColor(i, j) + ";" + "-fx-font-weight: bold;");
                     gridLabel.setBorder(new Border(new BorderStroke(Color.BLACK,

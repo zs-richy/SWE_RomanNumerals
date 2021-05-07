@@ -9,9 +9,9 @@ class GameTest {
     Game testGame;
 
     @Test
-    void getFieldXY() {
+    void getFieldByCoord() {
         testGame = new Game();
-        assertEquals("I", testGame.getFieldXY(0,0));
+        assertEquals("I", testGame.getFieldByCoord(0,0));
     }
 
     @Test

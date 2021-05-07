@@ -1,18 +1,13 @@
 package game;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import lombok.Getter;
 import lombok.Setter;
 import org.pmw.tinylog.Logger;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static game.Progress.*;
 
 /**
  * Class that contains the game logic.
@@ -28,8 +23,7 @@ public class Game {
     private int currentY;
     private String state;
     private int stateCounter;
-    private boolean won;
-    private boolean lost;
+    private Progress gameProgress;
     private String playerName;
     private double startTime;
     private double endTime;
@@ -45,10 +39,140 @@ public class Game {
         currentY = 3;
         state = "";
         stateCounter = 0;
-        won = false;
-        lost = false;
+        gameProgress = PLAYING;
         startTime = 0;
         Logger.info("Game object initialized.");
+    }
+
+    /**
+     * Handles the movement in the given direction.
+     * Moves in the give direction if possible and updates the game state
+     * accordingly with {@code updateState()} method.
+     * @param direction the direction of the movement
+     */
+    public void move(Direction direction) {
+        if (canMove(direction)) {
+            switch (direction) {
+                case UP -> currentY--;
+                case DOWN -> currentY++;
+                case LEFT -> currentX--;
+                case RIGHT -> currentX++;
+            }
+            updateState();
+        } else {
+            Logger.info("Can't move the given direction.");
+        }
+    }
+
+
+    /**
+     * Checks if it is possible to move in the given direction.
+     *
+     * @param direction the direction of the movement
+     * @return {@code true} if possible to move in the specified direction;
+     *         {@code false} otherwise
+     */
+    public boolean canMove(Direction direction) {
+        boolean canMove = false;
+
+        switch(direction) {
+            case DOWN -> {
+                if (currentY < 6) {
+                    canMove = true;
+                }
+            }
+            case UP -> {
+                if (currentY > 0) {
+                    canMove = true;
+                }
+            }
+            case RIGHT -> {
+                if (currentX < 6) {
+                    canMove = true;
+                }
+            }
+            case LEFT -> {
+                if (currentX > 0) {
+                    canMove = true;
+                }
+            }
+        }
+
+        return canMove;
+
+    }
+
+    /**
+     * Updates the game state based on the current coordinates.
+     * Concatenates the current field's value to previous state
+     * if it's not an empty field. If the field is empty checks
+     * for win/lose condition.
+     */
+    public void updateState() {
+        if (!getFieldByCoord(currentX, currentY).equals("")) {
+            state = state + getFieldByCoord(currentX, currentY);
+        } else {
+            if (isCorrectState()) {
+                stateCounter++;
+                Logger.info("Found the next component of the solution!");
+                updateWinCondition();
+            } else {
+                updateLoseCondition();
+                Logger.info("You FAILED!");
+            }
+            state = "";
+        }
+        Logger.info("State updated :" + state);
+    }
+
+    /**
+     * Checks if the current state corresponds to the puzzle solution.
+     *
+     * @return {@code true} if the current state is the next component
+     * of the solution; {@code false} otherwise
+     */
+    public boolean isCorrectState() {
+        boolean correct = false;
+
+        if (state.equals(solution.get(stateCounter))) {
+            correct = true;
+        }
+
+        return correct;
+    }
+
+    /**
+     * Ends the game if the player has completed the puzzle.
+     * Ends the game and calls {@code calculateResult()} method
+     * to calculate the game results.
+     */
+    public void updateWinCondition() {
+        if (stateCounter == 40) {
+            gameProgress = WON;
+            calculateResult();
+            Logger.info("You completed the puzzle!");
+        }
+    }
+
+    /**
+     * Ends the game if the player failed to complete the puzzle.
+     * Ends the game and calls {@code calculateResult()} method
+     * to calculate the game results.
+     */
+    public void updateLoseCondition() {
+        gameProgress = LOST;
+        calculateResult();
+    }
+
+    /**
+     * Calculates the game results.
+     */
+    public void calculateResult() {
+        endTime = System.currentTimeMillis();
+        double completionTime = (endTime-startTime) / 1000;
+        result = new Result(playerName, stateCounter, completionTime);
+
+        Logger.info("Game result: " + result.toString());
     }
 
     /**
@@ -94,7 +218,7 @@ public class Game {
      * @param y column of the element to get
      * @return the field corresponding to (x,y) coordinate
      */
-    public String getFieldXY(int x, int y) {
+    public String getFieldByCoord(int x, int y) {
         return this.field.get(y).get(x);
     }
 
@@ -112,135 +236,20 @@ public class Game {
         this.endTime = System.currentTimeMillis();
     }
 
-    /**
-     * Checks if it is possible to move in the given direction.
-     *
-     * @param direction the direction of the movement
-     * @return {@code true} if possible to move in the specified direction;
-     *         {@code false} otherwise
-     */
-    public boolean canMove(Direction direction) {
-        boolean canMove = false;
-
-        switch(direction) {
-            case DOWN -> {
-                if (currentY < 6) {
-                    canMove = true;
-                }
-            }
-            case UP -> {
-                if (currentY > 0) {
-                    canMove = true;
-                }
-            }
-            case RIGHT -> {
-                if (currentX < 6) {
-                    canMove = true;
-                }
-            }
-            case LEFT -> {
-                if (currentX > 0) {
-                    canMove = true;
-                }
-            }
-        }
-
-        return canMove;
-
-    }
-
-    /**
-     * Handles the movement in the given direction.
-     * Moves in the give direction if possible and updates the game state
-     * accordingly with {@code updateState()} method.
-     * @param direction the direction of the movement
-     */
-    public void move(Direction direction) {
-        if (canMove(direction)) {
-            switch (direction) {
-                case UP -> currentY--;
-                case DOWN -> currentY++;
-                case LEFT -> currentX--;
-                case RIGHT -> currentX++;
-            }
-            updateState();
+    public boolean isWon() {
+        if (gameProgress == WON) {
+            return true;
         } else {
-            Logger.info("Can't move the given direction.");
+            return false;
         }
     }
 
-    /**
-     * Updates the game state based on the current coordinates.
-     * Concatenates the current field's value to previous state
-     * if it's not an empty field. If the field is empty checks
-     * for win/lose condition.
-     */
-    public void updateState() {
-        if (!getFieldXY(currentX, currentY).equals("")) {
-            state = state + getFieldXY(currentX, currentY);
+    public boolean isLost() {
+        if (gameProgress == LOST) {
+            return true;
         } else {
-            if (isCorrectState()) {
-                stateCounter++;
-                Logger.info("Found the next component of the solution!");
-                updateWinCondition();
-            } else {
-                updateLoseCondition();
-                Logger.info("You FAILED!");
-            }
-            state = "";
-        }
-        Logger.info("State updated :" + state);
-    }
-
-    /**
-     * Checks if the current state corresponds to the puzzle solution.
-     *
-     * @return {@code true} if the current state is the next component
-     * of the solution; {@code false} otherwise
-     */
-    public boolean isCorrectState() {
-        boolean correct = false;
-
-        if (state.equals(solution.get(stateCounter))) {
-            correct = true;
-        }
-
-        return correct;
-    }
-
-    /**
-     * Ends the game if the player has completed the puzzle.
-     * Ends the game and calls {@code calculateResult()} method
-     * to calculate the game results.
-     */
-    public void updateWinCondition() {
-        if (stateCounter == 40) {
-            won = true;
-            calculateResult();
-            Logger.info("You completed the puzzle!");
+            return false;
         }
     }
-
-    /**
-     * Ends the game if the player failed to complete the puzzle.
-     * Ends the game and calls {@code calculateResult()} method
-     * to calculate the game results.
-     */
-    public void updateLoseCondition() {
-        this.lost = true;
-        calculateResult();
-    }
-
-    /**
-     * Calculates the game results.
-     */
-    public void calculateResult() {
-        endTime = System.currentTimeMillis();
-        double completionTime = (endTime-startTime) / 1000;
-        result = new Result(playerName, stateCounter, completionTime);
-
-        Logger.info("Game result: " + result.toString());
-    }
-
 
 }
