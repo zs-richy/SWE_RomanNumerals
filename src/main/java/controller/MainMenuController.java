@@ -28,14 +28,14 @@ public class MainMenuController {
 
     public void startPressed(ActionEvent e) throws IOException {
         Stage scene = (Stage) ((Node) e.getSource()).getScene().getWindow();
-        Logger.info("Loading gameView fxml.");
-        loadScene(scene, "gameView");
+        Logger.info("Loading GameView fxml.");
+        loadScene(scene, "GameView");
     }
 
     public void resultsPressed(ActionEvent e) throws IOException {
         Stage scene = (Stage) ((Node) e.getSource()).getScene().getWindow();
-        Logger.info("Loading gameView fxml.");
-        loadScene(scene, "resultView");
+        Logger.info("Loading ResultView fxml.");
+        loadScene(scene, "ResultView");
     }
 
     public void exitPressed(ActionEvent e) {

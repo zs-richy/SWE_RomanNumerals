@@ -5,21 +5,21 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPane" prefHeight="400.0" prefWidth="600" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainMenuController">
+<AnchorPane fx:id="mainPane" prefHeight="400.0" prefWidth="600" xmlns="http://javafx.com/javafx/15" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainMenuController">
    <children>
-      <Pane layoutX="-2.0" layoutY="-4.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="406.0" prefWidth="606.0" style="-fx-background-image: url(&quot;background.png&quot;);">
+      <Pane layoutX="-2.0" layoutY="-4.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="406.0" prefWidth="606.0" style="-fx-background-image: url(background.png);">
          <children>
-            <Button fx:id="startButton" layoutX="260.0" layoutY="39.0" mnemonicParsing="false" onAction="#startPressed" style="-fx-background-color: lightgreen;" text="Start">
+            <Button fx:id="startButton" layoutX="260.0" layoutY="71.0" mnemonicParsing="false" onAction="#startPressed" style="-fx-background-color: lightgreen;" text="Start">
                <font>
                   <Font size="25.0" />
                </font>
             </Button>
-            <Button fx:id="buttonResults" layoutX="259.0" layoutY="115.0" mnemonicParsing="false" onAction="#resultsPressed" style="-fx-background-color: deepskyblue;" text="Results">
+            <Button fx:id="buttonResults" layoutX="260.0" layoutY="147.0" mnemonicParsing="false" onAction="#resultsPressed" style="-fx-background-color: deepskyblue;" text="Results">
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="buttonExit" layoutX="285.0" layoutY="177.0" mnemonicParsing="false" onAction="#exitPressed" style="-fx-background-color: red;" text="Exit" />
+            <Button fx:id="buttonExit" layoutX="285.0" layoutY="209.0" mnemonicParsing="false" onAction="#exitPressed" style="-fx-background-color: #ff0000;" text="Exit" />
          </children>
       </Pane>
    </children>

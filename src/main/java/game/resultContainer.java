@@ -49,8 +49,8 @@ public class resultContainer {
 
         try {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
-            //FileWriter writer = new FileWriter(Paths.get(".").toAbsolutePath().normalize().toString()+"/results/results.json");
-            FileWriter writer = new FileWriter(loader.getResource("results/results.json").getFile());
+            FileWriter writer = new FileWriter(Paths.get(".").toAbsolutePath().normalize().toString()+"/results/results.json");
+            //FileWriter writer = new FileWriter(loader.getResource("results/results.json").getFile());
             om.writeValue(writer, results);
             writer.close();
             Logger.info("Game results written to file.");
