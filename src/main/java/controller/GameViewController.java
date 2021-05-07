@@ -65,20 +65,28 @@ public class GameViewController {
     Timeline timeline;
     Label currentLabel;
 
-    public String getColor(int x, int y) {
-        String fieldXY = game.getFieldByCoord(x,y);
-        String color = "black";
-        switch (fieldXY) {
-            case "I": color = "yellow"; break;
-            case "V": color = "lawngreen"; break;
-            case "X": color = "red"; break;
-            case "L": color = "cyan"; break;
-            case "": color = "gray"; break;
+    @FXML
+    public void gridPaneKeyPressed(KeyEvent e) {
+        Logger.info("Key pressed on gridPane");
+        preMove();
+        if (e.getCode() == KeyCode.UP) {
+            Logger.info("UP key pressed");
+            game.move(Direction.UP);
         }
-
-        return color;
+        if (e.getCode() == KeyCode.DOWN) {
+            Logger.info("DOWN key pressed");
+            game.move(Direction.DOWN);
+        }
+        if (e.getCode() == KeyCode.LEFT) {
+            Logger.info("LEFT key pressed");
+            game.move(Direction.LEFT);
+        }
+        if (e.getCode() == KeyCode.RIGHT) {
+            Logger.info("RIGHT key pressed");
+            game.move(Direction.RIGHT);
+        }
+        postMove();
     }
-
 
     public void preMove() {
         currentLabel = labels.get(game.getCurrentX()).get(game.getCurrentY());
@@ -96,29 +104,6 @@ public class GameViewController {
             currentMoveLabel.setText("Current move: " + game.getState());
             nextGoalLabel.setText("Next goal: " + game.getSolution().get(game.getStateCounter()));
         }
-    }
-
-    @FXML
-    public void gridPaneKeyPressed(KeyEvent e) {
-        Logger.info("Key pressed on gridPane.");
-        preMove();
-        if (e.getCode() == KeyCode.UP) {
-            Logger.info("UP key");
-            game.move(Direction.UP);
-        }
-        if (e.getCode() == KeyCode.DOWN) {
-            Logger.info("DOWN key");
-            game.move(Direction.DOWN);
-        }
-        if (e.getCode() == KeyCode.LEFT) {
-            Logger.info("LEFT key");
-            game.move(Direction.LEFT);
-        }
-        if (e.getCode() == KeyCode.RIGHT) {
-            Logger.info("RIGHT key");
-            game.move(Direction.RIGHT);
-        }
-        postMove();
     }
 
     public void updateViewWon() {
@@ -186,6 +171,20 @@ public class GameViewController {
         initialize();
     }
 
+    public String getColor(int x, int y) {
+        String fieldXY = game.getFieldByCoord(x,y);
+        String color = "black";
+        switch (fieldXY) {
+            case "I": color = "yellow"; break;
+            case "V": color = "lawngreen"; break;
+            case "X": color = "red"; break;
+            case "L": color = "cyan"; break;
+            case "": color = "gray"; break;
+        }
+
+        return color;
+    }
+
     public void setBlackBorder(Label label) {
         label.setBorder(new Border(new BorderStroke(Color.BLACK,
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
@@ -196,6 +195,27 @@ public class GameViewController {
                 BorderStrokeStyle.DASHED, CornerRadii.EMPTY, new BorderWidths(4, 4, 4, 4))));
     }
 
+    private void initGameBoard() {
+        labels = new ArrayList<ArrayList<Label>>();
+        for (int i = 0; i < 7; i++) {
+            ArrayList<Label> iterateLabel = new ArrayList<Label>();
+            for (int j = 0; j < 7; j++) {
+                Label gridLabel = new Label();
+                gridLabel.setPrefWidth(40);
+                gridLabel.setPrefHeight(40);
+                gridLabel.setAlignment(Pos.CENTER);
+                gridLabel.setText(game.getFieldByCoord(i, j));
+                gridLabel.setFont((new Font(20)));
+                gridLabel.setStyle("-fx-background-color: " + getColor(i, j) + ";" + "-fx-font-weight: bold;");
+                gridLabel.setBorder(new Border(new BorderStroke(Color.BLACK,
+                        BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+                gridPane.add((Node) gridLabel, i, j);
+                iterateLabel.add(gridLabel);
+            }
+            labels.add(iterateLabel);
+        }
+    }
+
     @FXML
     public void initialize() {
         gridPane.setFocusTraversable(true);
@@ -204,28 +224,11 @@ public class GameViewController {
         game = new Game();
 
         if (gridPane.getChildren().size() == 0) {
-            labels = new ArrayList<ArrayList<Label>>();
-            for (int i = 0; i < 7; i++) {
-                ArrayList<Label> iterateLabel = new ArrayList<Label>();
-                for (int j = 0; j < 7; j++) {
-                    Label gridLabel = new Label();
-                    gridLabel.setPrefWidth(40);
-                    gridLabel.setPrefHeight(40);
-                    gridLabel.setAlignment(Pos.CENTER);
-                    gridLabel.setText(game.getFieldByCoord(i, j));
-                    gridLabel.setFont((new Font(20)));
-                    gridLabel.setStyle("-fx-background-color: " + getColor(i, j) + ";" + "-fx-font-weight: bold;");
-                    gridLabel.setBorder(new Border(new BorderStroke(Color.BLACK,
-                            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-                    gridPane.add((Node) gridLabel, i, j);
-                    iterateLabel.add(gridLabel);
-                }
-                labels.add(iterateLabel);
-            }
+            initGameBoard();
         }
 
-        labels.get(game.getCurrentX()).get(game.getCurrentY()).setBorder(new Border(new BorderStroke(Color.DARKBLUE,
-                BorderStrokeStyle.DASHED, CornerRadii.EMPTY, new BorderWidths(4, 4, 4, 4))));
+        currentLabel = labels.get(game.getCurrentX()).get(game.getCurrentY());
+        setBlueBorder(currentLabel);
         nextGoalLabel.setText("Next goal: " + game.getSolution().get(game.getStateCounter()));
 
         DateFormat timeFormat = new SimpleDateFormat( "mm:ss.S" );
@@ -241,6 +244,5 @@ public class GameViewController {
         timeline.setCycleCount( Animation.INDEFINITE );
         timeline.play();
     }
-
 
 }
