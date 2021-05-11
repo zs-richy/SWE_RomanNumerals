@@ -2,7 +2,7 @@ package game;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.pmw.tinylog.Logger;
+import org.tinylog.Logger;
 
 import java.util.Arrays;
 import java.util.List;

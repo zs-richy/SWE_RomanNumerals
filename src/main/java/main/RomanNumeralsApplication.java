@@ -6,7 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.pmw.tinylog.Logger;
+import org.tinylog.Logger;
 
 public class RomanNumeralsApplication extends Application {
 
