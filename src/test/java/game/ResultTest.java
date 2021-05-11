@@ -21,7 +21,9 @@ class ResultTest {
         Result testResult1 = new Result("Test", 0, 0);
         Result testResult2 = new Result("Test", 1, 0);
         Result testResult3 = new Result("Test", 1, 1.0);
+        Result testResult4 = new Result("Test", 1,1.0);
         assertEquals(-1,testResult1.compareTo(testResult2));
         assertEquals(1,testResult2.compareTo(testResult3));
+        assertEquals(0,testResult3.compareTo(testResult4));
     }
 }

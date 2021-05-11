@@ -67,8 +67,8 @@ public class resultContainer {
 
         try {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
-            //Result[] res = om.readValue(new File(Paths.get(".").toAbsolutePath().normalize().toString()+"/results/results.json"), Result[].class);
-            Result[] res = om.readValue(new FileReader(loader.getResource("results/results.json").getFile()), Result[].class);
+            Result[] res = om.readValue(new File(Paths.get(".").toAbsolutePath().normalize().toString()+"/results/results.json"), Result[].class);
+            //Result[] res = om.readValue(new FileReader(loader.getResource("results/results.json").getFile()), Result[].class);
             results = new ArrayList<>(Arrays.asList(res));
             Logger.info("Game results read from file.");
         } catch (IOException e) {

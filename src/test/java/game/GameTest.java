@@ -37,6 +37,12 @@ class GameTest {
         assertEquals(2, testGame.getCurrentX());;
         testGame.move(Direction.RIGHT);
         assertEquals(3, testGame.getCurrentX());
+        testGame.setCurrentX(6);
+        testGame.setCurrentY(6);
+        testGame.move(Direction.RIGHT);
+        assertEquals(6,testGame.getCurrentX());
+        testGame.move(Direction.DOWN);
+        assertEquals(6,testGame.getCurrentY());
     }
 
     @Test
@@ -52,6 +58,9 @@ class GameTest {
         testGame = new Game();
         testGame.setState("I");
         assertTrue(testGame.isCorrectState());
+        testGame.setState("XL");
+        testGame.setStateCounter(39);
+        assertTrue(testGame.isCorrectState());
     }
 
     @Test
@@ -65,17 +74,21 @@ class GameTest {
     @Test
     void setLoseCondition() {
         testGame = new Game();
+        assertFalse(testGame.isLost());
         testGame.updateLoseCondition();
         assertTrue(testGame.isLost());
     }
 
     @Test
-    void calculateResult() {
+    void isWon() {
         testGame = new Game();
-        testGame.setStartTimer();
-        testGame.setEndTime(testGame.getStartTime());
-        testGame.calculateResult();
-        assertEquals(0, testGame.getResult().getTime());
-        assertEquals(0, testGame.getResult().getState());
+        assertFalse(testGame.isWon());
+        testGame.setStateCounter(39);
+        testGame.updateWinCondition();
+        assertFalse(testGame.isWon());
+        testGame.setStateCounter(40);
+        testGame.updateWinCondition();
+        assertTrue(testGame.isWon());
     }
+
 }

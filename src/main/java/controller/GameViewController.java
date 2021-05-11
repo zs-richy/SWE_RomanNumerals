@@ -91,6 +91,7 @@ public class GameViewController {
     public void preMove() {
         currentLabel = labels.get(game.getCurrentX()).get(game.getCurrentY());
         setBlackBorder(currentLabel);
+        timeLabel.setVisible(true);
     }
 
     public void postMove() {
@@ -120,7 +121,6 @@ public class GameViewController {
     }
 
     public void updateViewLost() {
-        game.setEndTimer();
         currentLabel = labels.get(game.getCurrentX()).get(game.getCurrentY());
         setBlackBorder(currentLabel);
         timeline.stop();
@@ -148,9 +148,8 @@ public class GameViewController {
         } else {
             game.setPlayerName(nameField.getText());
         }
-        game.setStartTimer();
         paneGame.setVisible(true);
-        timeLabel.setVisible(true);
+        timeLabel.setVisible(false);
         paneGame.setDisable(false);
         paneGame.setOpacity(100);
         paneStart.setVisible(false);

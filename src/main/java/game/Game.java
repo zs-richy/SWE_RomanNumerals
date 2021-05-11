@@ -51,6 +51,9 @@ public class Game {
      * @param direction the direction of the movement
      */
     public void move(Direction direction) {
+        if(this.startTime == 0) {
+            this.setStartTimer();
+        }
         if (canMove(direction)) {
             switch (direction) {
                 case UP -> currentY--;
@@ -167,12 +170,28 @@ public class Game {
     /**
      * Calculates the game results.
      */
-    public void calculateResult() {
-        endTime = System.currentTimeMillis();
+    private void calculateResult() {
+        this.setEndTimer();
         double completionTime = (endTime-startTime) / 1000;
         result = new Result(playerName, stateCounter, completionTime);
 
         Logger.info("Game result: " + result.toString());
+    }
+
+    public boolean isWon() {
+        if (gameProgress == WON) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean isLost() {
+        if (gameProgress == LOST) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -225,31 +244,15 @@ public class Game {
     /**
      * Sets the start time to current time.
      */
-    public void setStartTimer() {
+    private void setStartTimer() {
         this.startTime = System.currentTimeMillis();
     }
 
     /**
      * Sets the end time to current time.
      */
-    public void setEndTimer() {
+    private void setEndTimer() {
         this.endTime = System.currentTimeMillis();
-    }
-
-    public boolean isWon() {
-        if (gameProgress == WON) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean isLost() {
-        if (gameProgress == LOST) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
 }
