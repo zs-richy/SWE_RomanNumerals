@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
- * Class that holds the result objects.
+ * Class that holds the result objects and handles persistence.
  */
 public class resultContainer {
     private static ArrayList<Result>  results = new ArrayList<>();
