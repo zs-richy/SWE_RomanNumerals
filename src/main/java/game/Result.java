@@ -48,7 +48,6 @@ public class Result implements Comparable<Result> {
         return this.date;
     }
 
-
     @Override
     public String toString() {
         return "Result{" +

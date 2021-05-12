@@ -9,9 +9,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.tinylog.Logger;
-
 import java.io.IOException;
 
+// CHECKSTYLE:OFF
 public class MainMenuController {
 
     @FXML
@@ -47,3 +47,4 @@ public class MainMenuController {
     }
 
 }
+// CHECKSTYLE:ON

@@ -32,6 +32,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+// CHECKSTYLE:OFF
 public class GameViewController {
     Game game;
     ArrayList<ArrayList<Label>> labels;
@@ -245,3 +246,4 @@ public class GameViewController {
     }
 
 }
+// CHECKSTYLE:ON

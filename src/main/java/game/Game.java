@@ -12,7 +12,6 @@ import static game.Progress.*;
 /**
  * Class that contains the game logic.
  */
-
 @Getter
 @Setter
 public class Game {
@@ -48,6 +47,8 @@ public class Game {
      * Handles the movement in the given direction.
      * Moves in the give direction if possible and updates the game state
      * accordingly with {@code updateState()} method.
+     * Also starts the timer by calling {@code setStartTimer()} on the
+     * first move.
      * @param direction the direction of the movement
      */
     public void move(Direction direction) {
@@ -178,6 +179,11 @@ public class Game {
         Logger.info("Game result: " + result.toString());
     }
 
+    /**
+     * Checks whether the player has completed the puzzle.
+     * @return {@code true} if the puzzle is completed;
+     * {@code false} otherwise
+     */
     public boolean isWon() {
         if (gameProgress == WON) {
             return true;
@@ -186,6 +192,11 @@ public class Game {
         }
     }
 
+    /**
+     * Checks whether the player has failed the puzzle.
+     * @return {@code true} if the player failed;
+     * {@code false} otherwise
+     */
     public boolean isLost() {
         if (gameProgress == LOST) {
             return true;

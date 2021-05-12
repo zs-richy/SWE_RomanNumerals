@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.tinylog.Logger;
 
+// CHECKSTYLE:OFF
 public class RomanNumeralsApplication extends Application {
 
     @Override

@@ -37,6 +37,10 @@ public class resultContainer {
         Collections.sort(results, Collections.reverseOrder());
     }
 
+    /**
+     * Returns the results.
+     * @return results contained in the {@code static ArrayList}
+     */
     public static ArrayList<Result> getResults() {
         return results;
     }
@@ -49,8 +53,7 @@ public class resultContainer {
 
         try {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
-            FileWriter writer = new FileWriter(Paths.get(".").toAbsolutePath().normalize().toString()+"/results/results.json");
-            //FileWriter writer = new FileWriter(loader.getResource("results/results.json").getFile());
+            FileWriter writer = new FileWriter("results.json");
             om.writeValue(writer, results);
             writer.close();
             Logger.info("Game results written to file.");
@@ -64,17 +67,19 @@ public class resultContainer {
      */
     public static void readResults() {
         ObjectMapper om = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+        File storageFile = new File("results.json");
 
-        try {
-            ClassLoader loader = Thread.currentThread().getContextClassLoader();
-            Result[] res = om.readValue(new File(Paths.get(".").toAbsolutePath().normalize().toString()+"/results/results.json"), Result[].class);
-            //Result[] res = om.readValue(new FileReader(loader.getResource("results/results.json").getFile()), Result[].class);
-            results = new ArrayList<>(Arrays.asList(res));
-            Logger.info("Game results read from file.");
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(storageFile.exists()) {
+            try {
+                ClassLoader loader = Thread.currentThread().getContextClassLoader();
+                Result[] res = om.readValue(new File("results.json"), Result[].class);
+                results = new ArrayList<>(Arrays.asList(res));
+                Logger.info("Game results read from file.");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            orderResults();
         }
-        orderResults();
     }
 
 }
