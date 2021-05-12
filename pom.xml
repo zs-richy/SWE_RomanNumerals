@@ -7,26 +7,28 @@
     <groupId>swe-homework</groupId>
     <artifactId>RomanNumerals</artifactId>
     <version>1.0</version>
+    <packaging>jar</packaging>
     <description>Logic game with roman numerals.</description>
-
     <developers>
         <developer>
             <id>zsr</id>
             <name>Richárd Zsula</name>
             <email>zs.ricsi@gmail.com</email>
+            <organization>Faculty of Informatics, University of Debrecen</organization>
+            <organizationUrl>https://inf.unideb.hu/</organizationUrl>
         </developer>
     </developers>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
         <exec.mainClass>main.Main</exec.mainClass>
         <mainClass>main.Main</mainClass>
         <jacksonVersion>2.12.2</jacksonVersion>
         <tinylogVersion>2.3.1</tinylogVersion>
+        <javafxVersion>15</javafxVersion>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -36,12 +38,14 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>15</version>
+            <version>${javafxVersion}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>15</version>
+            <version>${javafxVersion}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.tinylog</groupId>
@@ -70,6 +74,7 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.20</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
@@ -84,6 +89,9 @@
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.5</version>
+                <configuration>
+                    <mainClass>${exec.mainClass}</mainClass>
+                </configuration>
             </plugin>
             <plugin>
 		        <groupId>org.apache.maven.plugins</groupId>
@@ -101,6 +109,7 @@
 		                  <mainClass>main.Main</mainClass>
 		                </transformer>
 		              </transformers>
+                        <createDependencyReducedPom>false</createDependencyReducedPom>
 		            </configuration>
 		          </execution>
 		        </executions>
@@ -150,6 +159,11 @@
                         <version>8.42</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
             </plugin>
         </plugins>
     </build>
