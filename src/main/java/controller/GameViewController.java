@@ -2,11 +2,13 @@ package controller;
 
 import game.Direction;
 import game.Game;
+import result.Result;
 import result.resultContainer;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -65,6 +67,10 @@ public class GameViewController {
     Label timeLabel;
     Timeline timeline;
     Label currentLabel;
+    private double startTime;
+    private double endTime;
+    private String playerName;
+    private Result result;
 
     @FXML
     public void gridPaneKeyPressed(KeyEvent e) {
@@ -90,6 +96,9 @@ public class GameViewController {
     }
 
     public void preMove() {
+        if (startTime == 0) {
+            startTime = System.currentTimeMillis();
+        }
         currentLabel = labels.get(game.getCurrentX()).get(game.getCurrentY());
         setBlackBorder(currentLabel);
         timeLabel.setVisible(true);
@@ -99,8 +108,10 @@ public class GameViewController {
         currentLabel = labels.get(game.getCurrentX()).get(game.getCurrentY());
         setBlueBorder(currentLabel);
         if (game.isWon()) {
+            calculateResult();
             updateViewWon();
         } else if(game.isLost()) {
+            calculateResult();
             updateViewLost();
         } else {
             currentMoveLabel.setText("Current move: " + game.getState());
@@ -112,13 +123,12 @@ public class GameViewController {
         paneGame.setDisable(true);
         timeLabel.setVisible(false);
         setBlackBorder(currentLabel);
-        resultLabel.setText("Congrats  " + game.getPlayerName() + "!\nYou completed the puzzle in: " +
-                game.getResult().getTime() + " sec!");
+        resultLabel.setText("Congrats  " + playerName + "!\nYou completed the puzzle in: " +
+                result.getTime() + " sec!");
         resultLabel.setTextFill(Color.GREEN);
         resultLabel.setAlignment(Pos.CENTER);
         paneGame.setOpacity(0.1);
         paneResult.setVisible(true);
-        resultContainer.addResult(game.getResult());
     }
 
     public void updateViewLost() {
@@ -127,13 +137,12 @@ public class GameViewController {
         timeline.stop();
         timeLabel.setVisible(false);
         paneGame.setDisable(true);
-        resultLabel.setText("You failed " + game.getPlayerName() + "\nYou reached state " + game.getResult().getState() +
-                " in " + game.getResult().getTime() + " sec!");
+        resultLabel.setText("You failed " + playerName + "\nYou reached state " + result.getState() +
+                " in " + result.getTime() + " sec!");
         resultLabel.setTextFill(Color.RED);
         resultLabel.setAlignment(Pos.CENTER);
         paneGame.setOpacity(0.1);
         paneResult.setVisible(true);
-        resultContainer.addResult(game.getResult());
     }
 
     public void loadMainMenu(ActionEvent e) throws IOException {
@@ -145,10 +154,11 @@ public class GameViewController {
 
     public void startButtonClicked() {
         if (nameField.getText().equals("")) {
-            game.setPlayerName("Anonymous");
+            playerName = "Anonymous";
         } else {
-            game.setPlayerName(nameField.getText());
+            playerName = nameField.getText();
         }
+        startTime = 0;
         paneGame.setVisible(true);
         timeLabel.setVisible(false);
         paneGame.setDisable(false);
@@ -165,10 +175,9 @@ public class GameViewController {
     }
 
     public void retryButtonClicked() {
-        paneGame.setVisible(false);
         paneResult.setVisible(false);
-        paneStart.setVisible(true);
         initialize();
+        startButtonClicked();
     }
 
     public String getColor(int x, int y) {
@@ -193,6 +202,14 @@ public class GameViewController {
     public void setBlueBorder(Label label) {
         label.setBorder(new Border(new BorderStroke(Color.DARKBLUE,
                 BorderStrokeStyle.DASHED, CornerRadii.EMPTY, new BorderWidths(4, 4, 4, 4))));
+    }
+
+    private void calculateResult() {
+        endTime = System.currentTimeMillis();
+        double completionTime = (endTime-startTime) / 1000;
+        result = new Result(playerName, game.getStateCounter(), completionTime);
+        resultContainer.addResult(result);
+        Logger.info("Game result: " + result.toString());
     }
 
     private void initGameBoard() {
@@ -236,7 +253,7 @@ public class GameViewController {
                 new KeyFrame(
                         Duration.millis(10),
                         event -> {
-                            final double diff =  System.currentTimeMillis() - game.getStartTime();
+                            final double diff =  System.currentTimeMillis() - startTime;
                             timeLabel.setText( timeFormat.format( diff ) );
                         }
                 )

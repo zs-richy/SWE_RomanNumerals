@@ -25,9 +25,6 @@ public class Game {
     private int stateCounter;
     private Progress gameProgress;
     private String playerName;
-    private double startTime;
-    private double endTime;
-    private Result result;
 
     /**
      * Creates a {@code Game} object.
@@ -40,7 +37,6 @@ public class Game {
         state = "";
         stateCounter = 0;
         gameProgress = PLAYING;
-        startTime = 0;
         Logger.info("Game object initialized.");
     }
 
@@ -53,9 +49,6 @@ public class Game {
      * @param direction the direction of the movement
      */
     public void move(Direction direction) {
-        if(this.startTime == 0) {
-            this.setStartTimer();
-        }
         if (canMove(direction)) {
             switch (direction) {
                 case UP -> currentY--;
@@ -154,7 +147,6 @@ public class Game {
     public void updateWinCondition() {
         if (stateCounter == 40) {
             gameProgress = WON;
-            calculateResult();
             Logger.info("You completed the puzzle!");
         }
     }
@@ -166,19 +158,8 @@ public class Game {
      */
     public void updateLoseCondition() {
         gameProgress = LOST;
-        calculateResult();
     }
 
-    /**
-     * Calculates the game results.
-     */
-    private void calculateResult() {
-        this.setEndTimer();
-        double completionTime = (endTime-startTime) / 1000;
-        result = new Result(playerName, stateCounter, completionTime);
-
-        Logger.info("Game result: " + result.toString());
-    }
 
     /**
      * Checks whether the player has completed the puzzle.
@@ -252,19 +233,4 @@ public class Game {
     public String getFieldByCoord(int x, int y) {
         return this.field.get(y).get(x);
     }
-
-    /**
-     * Sets the start time to current time.
-     */
-    private void setStartTimer() {
-        this.startTime = System.currentTimeMillis();
-    }
-
-    /**
-     * Sets the end time to current time.
-     */
-    private void setEndTimer() {
-        this.endTime = System.currentTimeMillis();
-    }
-
 }
