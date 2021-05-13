@@ -3,6 +3,7 @@ package game;
 import lombok.Getter;
 import lombok.Setter;
 import org.tinylog.Logger;
+import result.Result;
 
 import java.util.Arrays;
 import java.util.List;

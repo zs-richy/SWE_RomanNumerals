@@ -1,6 +1,6 @@
 package main;
 
-import game.resultContainer;
+import result.resultContainer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

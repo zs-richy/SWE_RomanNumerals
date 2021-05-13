@@ -2,7 +2,7 @@ package controller;
 
 import game.Direction;
 import game.Game;
-import game.resultContainer;
+import result.resultContainer;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

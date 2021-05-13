@@ -1,6 +1,7 @@
 package game;
 
 import org.junit.jupiter.api.Test;
+import result.Result;
 
 import java.time.format.DateTimeFormatter;
 

@@ -1,4 +1,4 @@
-package game;
+package result;
 
 import java.time.format.DateTimeFormatter;
 

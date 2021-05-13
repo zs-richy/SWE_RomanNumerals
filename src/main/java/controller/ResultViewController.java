@@ -1,7 +1,7 @@
 package controller;
 
-import game.Result;
-import game.resultContainer;
+import result.Result;
+import result.resultContainer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
