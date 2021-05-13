@@ -3,7 +3,6 @@ package game;
 import lombok.Getter;
 import lombok.Setter;
 import org.tinylog.Logger;
-import result.Result;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,19 +36,19 @@ public class Game {
         state = "";
         stateCounter = 0;
         gameProgress = PLAYING;
-        Logger.info("Game object initialized.");
+        Logger.debug("Game object initialized.");
     }
 
     /**
      * Handles the movement in the given direction.
      * Moves in the give direction if possible and updates the game state
      * accordingly with {@code updateState()} method.
-     * Also starts the timer by calling {@code setStartTimer()} on the
-     * first move.
+     *
      * @param direction the direction of the movement
      */
     public void move(Direction direction) {
         if (canMove(direction)) {
+            Logger.info("Moving " + direction + ".");
             switch (direction) {
                 case UP -> currentY--;
                 case DOWN -> currentY++;
@@ -72,6 +71,7 @@ public class Game {
      */
     public boolean canMove(Direction direction) {
         boolean canMove = false;
+        Logger.debug("Checking movement possibility to " + direction);
 
         switch(direction) {
             case DOWN -> {
@@ -96,8 +96,8 @@ public class Game {
             }
         }
 
+        Logger.debug("Can move " + direction + "?" + canMove);
         return canMove;
-
     }
 
     /**
@@ -116,11 +116,11 @@ public class Game {
                 updateWinCondition();
             } else {
                 updateLoseCondition();
-                Logger.info("You FAILED!");
+                Logger.info("Not correct state.");
             }
             state = "";
         }
-        Logger.info("State updated :" + state);
+        Logger.debug("State updated :" + state);
     }
 
     /**
@@ -134,6 +134,7 @@ public class Game {
 
         if (state.equals(solution.get(stateCounter))) {
             correct = true;
+            Logger.debug("Correct state.");
         }
 
         return correct;
@@ -141,23 +142,22 @@ public class Game {
 
     /**
      * Ends the game if the player has completed the puzzle.
-     * Ends the game and calls {@code calculateResult()} method
-     * to calculate the game results.
+     * Sets {@code gameProgress} to {@code WON}.
      */
     public void updateWinCondition() {
         if (stateCounter == 40) {
             gameProgress = WON;
-            Logger.info("You completed the puzzle!");
+            Logger.info("Puzzle completed.");
         }
     }
 
     /**
      * Ends the game if the player failed to complete the puzzle.
-     * Ends the game and calls {@code calculateResult()} method
-     * to calculate the game results.
+     * Sets {@code gameProgress} to {@code WON}.
      */
     public void updateLoseCondition() {
         gameProgress = LOST;
+        Logger.info("Puzzle failed.");
     }
 
 
@@ -188,6 +188,18 @@ public class Game {
     }
 
     /**
+     * Returns the specified field of the game board.
+     * The origin of indexes is the top-left corner!
+     *
+     * @param x row of the element to get
+     * @param y column of the element to get
+     * @return the field corresponding to (x,y) coordinate
+     */
+    public String getFieldByCoord(int x, int y) {
+        return this.field.get(y).get(x);
+    }
+
+    /**
      * Initialize the puzzle solution.
      *
      * @return a list with the solution
@@ -198,7 +210,6 @@ public class Game {
                 "XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX",
                 "XXI","XXII","XXIII","XXIV","XXV","XXVI","XXVII", "XXVIII","XXIX","XXX",
                 "XXXI","XXXII","XXXIII","XXXIV","XXXV","XXXVI","XXXVII","XXXVIII","XXXIX","XL");
-
         return solution;
     }
 
@@ -222,15 +233,4 @@ public class Game {
         return field;
     }
 
-    /**
-     * Returns the specified field of the game board.
-     * The origin of indexes is the top-left corner!
-     *
-     * @param x row of the element to get
-     * @param y column of the element to get
-     * @return the field corresponding to (x,y) coordinate
-     */
-    public String getFieldByCoord(int x, int y) {
-        return this.field.get(y).get(x);
-    }
 }

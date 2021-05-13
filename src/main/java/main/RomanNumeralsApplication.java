@@ -19,8 +19,8 @@ public class RomanNumeralsApplication extends Application {
         stage.setScene(new Scene(root));
         stage.show();
         resultContainer.readResults();
-        Logger.info("Application started.");
-        Logger.info("Main Menu loaded.");
+        Logger.debug("Application started.");
+        Logger.debug("Main Menu loaded.");
     }
 
 }

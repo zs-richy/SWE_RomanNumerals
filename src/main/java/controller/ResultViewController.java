@@ -1,5 +1,6 @@
 package controller;
 
+import org.tinylog.Logger;
 import result.Result;
 import result.resultContainer;
 import javafx.event.ActionEvent;
@@ -34,6 +35,7 @@ public class ResultViewController {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainMenu.fxml"));
         stage.setScene(new Scene(root));
         stage.show();
+        Logger.debug("Main menu loaded.");
     }
 
     @FXML

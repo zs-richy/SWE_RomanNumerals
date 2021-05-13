@@ -25,6 +25,7 @@ public class resultContainer {
         results.add(result);
         orderResults();
         writeResults();
+        Logger.debug("Result added to container.");
     }
 
     /**

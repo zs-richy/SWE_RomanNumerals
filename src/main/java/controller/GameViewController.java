@@ -36,37 +36,36 @@ import java.util.ArrayList;
 
 // CHECKSTYLE:OFF
 public class GameViewController {
-    Game game;
-    ArrayList<ArrayList<Label>> labels;
-    IntegerProperty currentX = new SimpleIntegerProperty();
-    IntegerProperty currentY = new SimpleIntegerProperty();
 
     @FXML
-    GridPane gridPane;
+    private GridPane gridPane;
     @FXML
-    AnchorPane mainPane;
+    private AnchorPane mainPane;
     @FXML
-    AnchorPane paneGame;
+    private AnchorPane paneGame;
     @FXML
-    AnchorPane paneResult;
+    private AnchorPane paneResult;
     @FXML
-    AnchorPane paneStart;
+    private AnchorPane paneStart;
     @FXML
-    Button startButton;
+    private Button startButton;
     @FXML
-    Button mainMenuButton;
+    private Button mainMenuButton;
     @FXML
-    TextField nameField;
+    private TextField nameField;
     @FXML
-    Label resultLabel;
+    private Label resultLabel;
     @FXML
-    Label currentMoveLabel;
+    private Label currentMoveLabel;
     @FXML
-    Label nextGoalLabel;
+    private Label nextGoalLabel;
     @FXML
-    Label timeLabel;
-    Timeline timeline;
-    Label currentLabel;
+    private Label timeLabel;
+
+    private Game game;
+    private ArrayList<ArrayList<Label>> labels;
+    private Timeline timeline;
+    private Label currentLabel;
     private double startTime;
     private double endTime;
     private String playerName;
@@ -74,22 +73,22 @@ public class GameViewController {
 
     @FXML
     public void gridPaneKeyPressed(KeyEvent e) {
-        Logger.info("Key pressed on gridPane");
+        Logger.debug("Key pressed on gridPane");
         preMove();
         if (e.getCode() == KeyCode.UP) {
-            Logger.info("UP key pressed");
+            Logger.debug("UP key pressed");
             game.move(Direction.UP);
         }
         if (e.getCode() == KeyCode.DOWN) {
-            Logger.info("DOWN key pressed");
+            Logger.debug("DOWN key pressed");
             game.move(Direction.DOWN);
         }
         if (e.getCode() == KeyCode.LEFT) {
-            Logger.info("LEFT key pressed");
+            Logger.debug("LEFT key pressed");
             game.move(Direction.LEFT);
         }
         if (e.getCode() == KeyCode.RIGHT) {
-            Logger.info("RIGHT key pressed");
+            Logger.debug("RIGHT key pressed");
             game.move(Direction.RIGHT);
         }
         postMove();
@@ -150,6 +149,7 @@ public class GameViewController {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainMenu.fxml"));
         stage.setScene(new Scene(root));
         stage.show();
+        Logger.debug("Main menu loaded.");
     }
 
     public void startButtonClicked() {
@@ -172,6 +172,7 @@ public class GameViewController {
         Parent root = fxmlLoader.load();
         stage.setScene(new Scene(root));
         stage.show();
+        Logger.debug("Main menu loaded.");
     }
 
     public void retryButtonClicked() {
@@ -208,8 +209,8 @@ public class GameViewController {
         endTime = System.currentTimeMillis();
         double completionTime = (endTime-startTime) / 1000;
         result = new Result(playerName, game.getStateCounter(), completionTime);
-        resultContainer.addResult(result);
         Logger.info("Game result: " + result.toString());
+        resultContainer.addResult(result);
     }
 
     private void initGameBoard() {
