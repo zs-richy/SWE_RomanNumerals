@@ -24,6 +24,11 @@ class GameTest {
         testGame.setCurrentX(6);
         testGame.setCurrentY(6);
         assertFalse(testGame.canMove(Direction.DOWN));
+        assertFalse(testGame.canMove(Direction.RIGHT));
+        testGame.setCurrentX(0);
+        testGame.setCurrentY(0);
+        assertFalse(testGame.canMove(Direction.LEFT));
+        assertFalse(testGame.canMove(Direction.UP));
     }
 
     @Test
@@ -43,6 +48,12 @@ class GameTest {
         assertEquals(6,testGame.getCurrentX());
         testGame.move(Direction.DOWN);
         assertEquals(6,testGame.getCurrentY());
+        testGame.setCurrentX(0);
+        testGame.setCurrentY(0);
+        testGame.move(Direction.LEFT);
+        assertEquals(0,testGame.getCurrentX());
+        testGame.move(Direction.UP);
+        assertEquals(0,testGame.getCurrentY());
     }
 
     @Test
