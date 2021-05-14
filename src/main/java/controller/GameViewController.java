@@ -158,6 +158,7 @@ public class GameViewController {
         } else {
             playerName = nameField.getText();
         }
+        currentMoveLabel.setText("Current move:");
         startTime = 0;
         paneGame.setVisible(true);
         timeLabel.setVisible(false);

@@ -95,7 +95,7 @@
                <VBox.margin>
                   <Insets bottom="15.0" top="15.0" />
                </VBox.margin></Button>
-                <Button fx:id="mainMenuButton" ellipsisString="" maxWidth="130.0" minWidth="110.0" mnemonicParsing="false" onAction="#loadMainMenu" text="Back to main menu" />
+                <Button fx:id="mainMenuButton" ellipsisString="" maxWidth="150.0" minWidth="110.0" mnemonicParsing="false" onAction="#loadMainMenu" text="Back to main menu" />
          </children>
       </VBox>
     </children>
