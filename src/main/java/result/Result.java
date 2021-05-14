@@ -32,18 +32,34 @@ public class Result implements Comparable<Result> {
         this.date = java.time.LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd."));
     }
 
+    /**
+     * Get the name from the result.
+     * @return the player name of the result
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Get the state from the result.
+     * @return the reached state from the result
+     */
     public int getState() {
         return this.state;
     }
 
+    /**
+     * Get the time from the result.
+     * @return the elapsed time until reaching the state
+     */
     public double getTime() {
         return this.time;
     }
 
+    /**
+     * Get the date from the result.
+     * @return the date of the result
+     */
     public String getDate() {
         return this.date;
     }

@@ -1,4 +1,4 @@
 /**
- * Package that contains classes for result storing.
+ * Contains classes for result storing.
  */
 package result;

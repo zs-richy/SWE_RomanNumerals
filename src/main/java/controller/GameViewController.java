@@ -44,9 +44,9 @@ public class GameViewController {
     @FXML
     private AnchorPane paneGame;
     @FXML
-    private AnchorPane paneResult;
+    private VBox paneResult;
     @FXML
-    private AnchorPane paneStart;
+    private VBox paneStart;
     @FXML
     private Button startButton;
     @FXML

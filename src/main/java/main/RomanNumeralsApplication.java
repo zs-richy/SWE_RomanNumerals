@@ -8,9 +8,16 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.tinylog.Logger;
 
-// CHECKSTYLE:OFF
+/**
+ * Class that initializes the stage.
+ */
 public class RomanNumeralsApplication extends Application {
 
+    /**
+     * Starts the JavaFX application.
+     * @param stage the window of the application
+     * @throws Exception I/O exception if the fxml file not found
+     */
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainMenu.fxml"));

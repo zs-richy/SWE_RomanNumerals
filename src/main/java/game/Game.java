@@ -23,7 +23,6 @@ public class Game {
     private String state;
     private int stateCounter;
     private Progress gameProgress;
-    private String playerName;
 
     /**
      * Creates a {@code Game} object.
