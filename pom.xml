@@ -18,6 +18,11 @@
             <organizationUrl>https://inf.unideb.hu/</organizationUrl>
         </developer>
     </developers>
+    <scm>
+        <url>https://github.com/zs-richy/SWE_RomanNumerals</url>
+        <connection>scm:git:git://github.com/zs-richy/SWE_RomanNumerals.git</connection>
+        <developerConnection>scm:git:git@github.com:zs-richy/SWE_RomanNumerals.git</developerConnection>
+    </scm>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
@@ -80,11 +85,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.2.0</version>
-            </plugin>
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
