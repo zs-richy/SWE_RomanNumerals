@@ -4,9 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.tinylog.Logger;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -51,7 +50,8 @@ public class resultContainer {
 
         try {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
-            FileWriter writer = new FileWriter("results.json");
+            //FileWriter writer = new FileWriter("results.json");
+            OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(new File("results.json")), StandardCharsets.UTF_8);
             om.writeValue(writer, results);
             writer.close();
             Logger.info("Game results written to file.");
@@ -63,14 +63,14 @@ public class resultContainer {
     /**
      * Reads the results from a JSON file.
      */
-    public static void readResults() {
+    public static void readResults() throws FileNotFoundException {
         ObjectMapper om = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
         File storageFile = new File("results.json");
-
         if(storageFile.exists()) {
             try {
+                InputStreamReader reader = new InputStreamReader(new FileInputStream(new File("results.json")), StandardCharsets.UTF_8);
                 ClassLoader loader = Thread.currentThread().getContextClassLoader();
-                Result[] res = om.readValue(new File("results.json"), Result[].class);
+                Result[] res = om.readValue(reader, Result[].class);
                 results = new ArrayList<>(Arrays.asList(res));
                 Logger.info("Game results read from file.");
             } catch (IOException e) {
