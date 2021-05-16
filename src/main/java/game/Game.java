@@ -152,7 +152,7 @@ public class Game {
 
     /**
      * Ends the game if the player failed to complete the puzzle.
-     * Sets {@code gameProgress} to {@code WON}.
+     * Sets {@code gameProgress} to {@code LOST}.
      */
     public void updateLoseCondition() {
         gameProgress = LOST;

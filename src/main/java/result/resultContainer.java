@@ -50,7 +50,6 @@ public class resultContainer {
 
         try {
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
-            //FileWriter writer = new FileWriter("results.json");
             OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(new File("results.json")), StandardCharsets.UTF_8);
             om.writeValue(writer, results);
             writer.close();
